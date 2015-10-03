@@ -1,0 +1,34 @@
+package com.jb.facebook.friends.quiz.callback;
+
+import com.badlogic.gdx.Gdx;
+import de.tomgrill.gdxfacebook.core.GDXFacebookCallback;
+import de.tomgrill.gdxfacebook.core.GDXFacebookError;
+import de.tomgrill.gdxfacebook.core.GDXFacebookLoginResult;
+
+/**
+ * Created by brekol on 03.10.15.
+ */
+public class FacebookLoginCallback implements GDXFacebookCallback<GDXFacebookLoginResult> {
+
+    private static final String TAG = "FacebookLoginCallback";
+    @Override
+    public void onSuccess(GDXFacebookLoginResult result) {
+        Gdx.app.log(TAG, "Result token" + result.getAccessToken().getToken());
+    }
+
+    @Override
+    public void onError(GDXFacebookError error) {
+        Gdx.app.log(TAG, "ERROR" + error);
+    }
+
+    @Override
+    public void onCancel() {
+
+        Gdx.app.log(TAG, "cancel");
+    }
+
+    @Override
+    public void onFail(Throwable t) {
+        Gdx.app.log(TAG, "fail " + t.getMessage(), t);
+    }
+}
