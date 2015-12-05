@@ -1,25 +1,26 @@
-package com.jb.facebook.friends.quiz.callback;
+package com.jb.facebook.friends.quiz.friends;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
+import com.google.gson.Gson;
 import de.tomgrill.gdxfacebook.core.GDXFacebookCallback;
 import de.tomgrill.gdxfacebook.core.GDXFacebookError;
 import de.tomgrill.gdxfacebook.core.GDXFacebookGraphResult;
 
 /**
- * Created by brekol on 03.10.15.
+ * Created by brekol on 05.12.15.
  */
-public class GetFriendsGraphRequest implements GDXFacebookCallback<GDXFacebookGraphResult> {
+public class GetFriendsCallback implements GDXFacebookCallback<GDXFacebookGraphResult> {
+
+
     private static final String TAG = "GetFriendsGraphRequest";
+
 
     @Override
     public void onSuccess(GDXFacebookGraphResult result) {
-        Gdx.app.log(TAG, "Result: " + result.getResultAsJson());
-        JsonValue root = new JsonReader().parse(result.getResultAsJson());
-        // In a real project you should do some validation of the JsonValue. You never know what comes back :)
-        String fbID = root.getString("id");
-        String fbNickname = root.getString("name");
+        final FriendsJson friendsJson = new Gson().fromJson(result.getResultAsJson(), FriendsJson.class);
+
+
+        Gdx.app.log(TAG, "Result=" + result.getResultAsJson());
     }
 
     @Override
