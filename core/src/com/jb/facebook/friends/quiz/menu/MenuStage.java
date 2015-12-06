@@ -1,21 +1,20 @@
-package com.jb.facebook.friends.quiz.mainmenu;
+package com.jb.facebook.friends.quiz.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.jb.facebook.friends.quiz.friends.FriendsInfoService;
+import com.jb.facebook.friends.quiz.menu.button.PlayButton;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 /**
  * Created by brekol on 05.12.15.
  */
-public class MainMenuScene extends Stage {
+public class MenuStage extends AbstractStage {
 
     private final FriendsInfoService friendsInfoService;
     private PlayButton playButton;
 
-    public MainMenuScene(GDXFacebook gdxFacebook) {
-        super();
+    public MenuStage(GDXFacebook gdxFacebook) {
         friendsInfoService = new FriendsInfoService(gdxFacebook);
 
         playButton = new PlayButton();

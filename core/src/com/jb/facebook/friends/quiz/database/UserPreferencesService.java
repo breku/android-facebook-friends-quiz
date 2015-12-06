@@ -8,7 +8,7 @@ public class UserPreferencesService extends AbstractPreferencesService {
     private static final String APPLICATION_ACCESS_TOKEN_KEY = "APPLICATION_ACCESS_TOKEN_KEY";
 
     public void saveApplicationAccessToken(final String value) {
-        saveKey(APPLICATION_ACCESS_TOKEN_KEY, value);
+        saveString(APPLICATION_ACCESS_TOKEN_KEY, value);
     }
 
     public String getApplicationAccessTokenKey() {

@@ -2,6 +2,7 @@ package com.jb.facebook.friends.quiz.friends;
 
 import com.badlogic.gdx.Gdx;
 import com.google.gson.Gson;
+import com.jb.facebook.friends.quiz.database.UserDatabaseService;
 import de.tomgrill.gdxfacebook.core.GDXFacebookCallback;
 import de.tomgrill.gdxfacebook.core.GDXFacebookError;
 import de.tomgrill.gdxfacebook.core.GDXFacebookGraphResult;
@@ -14,12 +15,11 @@ public class GetFriendsCallback implements GDXFacebookCallback<GDXFacebookGraphR
 
     private static final String TAG = "GetFriendsGraphRequest";
 
-
+    private final UserDatabaseService userDatabaseService = new UserDatabaseService();
     @Override
     public void onSuccess(GDXFacebookGraphResult result) {
-        final FriendsJson friendsJson = new Gson().fromJson(result.getResultAsJson(), FriendsJson.class);
-
-
+        final UsersJson usersJson = new Gson().fromJson(result.getResultAsJson(), UsersJson.class);
+        userDatabaseService.saveUsers(usersJson);
         Gdx.app.log(TAG, "Result=" + result.getResultAsJson());
     }
 

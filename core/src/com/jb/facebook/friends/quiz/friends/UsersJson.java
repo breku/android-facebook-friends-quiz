@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by brekol on 05.12.15.
  */
-public class FriendsJson {
+public class UsersJson {
 
     @SerializedName("data")
     private List<UserDetails> userDetailsList;

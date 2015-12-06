@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jb.facebook.friends.quiz.application.ApplicationService;
 import com.jb.facebook.friends.quiz.configuration.FacebookConfig;
-import com.jb.facebook.friends.quiz.mainmenu.MainMenuScene;
+import com.jb.facebook.friends.quiz.menu.MenuStage;
 import com.jb.facebook.friends.quiz.login.LoginService;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 import de.tomgrill.gdxfacebook.core.GDXFacebookSystem;
@@ -20,16 +20,16 @@ public class MyGdxGame extends ApplicationAdapter {
     private GDXFacebook gdxFacebook;
     private LoginService loginService;
     private ApplicationService applicationService;
-    private MainMenuScene mainMenuScene;
+    private MenuStage menuStage;
 
     @Override
     public void create() {
         createTextureTools();
         createServices();
 
-        mainMenuScene = new MainMenuScene(gdxFacebook);
+        menuStage = new MenuStage(gdxFacebook);
 
-        Gdx.input.setInputProcessor(mainMenuScene);
+        Gdx.input.setInputProcessor(menuStage);
 
 
 
@@ -41,8 +41,8 @@ public class MyGdxGame extends ApplicationAdapter {
     public void render() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        mainMenuScene.act(Gdx.graphics.getDeltaTime());
-        mainMenuScene.draw();
+        menuStage.act(Gdx.graphics.getDeltaTime());
+        menuStage.draw();
 //        batch.begin();
 //        batch.draw(img, 0, 0);
 //        batch.end();
