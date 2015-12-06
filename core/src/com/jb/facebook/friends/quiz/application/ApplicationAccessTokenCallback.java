@@ -36,7 +36,6 @@ public class ApplicationAccessTokenCallback implements GDXFacebookCallback<GDXFa
 
     @Override
     public void onCancel() {
-
         Gdx.app.log(TAG, "cancel");
     }
 }

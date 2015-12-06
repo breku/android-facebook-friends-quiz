@@ -3,6 +3,7 @@ package com.jb.facebook.friends.quiz.friends;
 import com.badlogic.gdx.Gdx;
 import com.google.gson.Gson;
 import com.jb.facebook.friends.quiz.database.UserDatabaseService;
+import com.jb.facebook.friends.quiz.json.UsersJson;
 import de.tomgrill.gdxfacebook.core.GDXFacebookCallback;
 import de.tomgrill.gdxfacebook.core.GDXFacebookError;
 import de.tomgrill.gdxfacebook.core.GDXFacebookGraphResult;

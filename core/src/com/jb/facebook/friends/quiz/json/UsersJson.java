@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.friends;
+package com.jb.facebook.friends.quiz.json;
 
 import com.google.gson.annotations.SerializedName;
 

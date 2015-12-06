@@ -1,6 +1,6 @@
 package com.jb.facebook.friends.quiz.database;
 
-import com.jb.facebook.friends.quiz.friends.UsersJson;
+import com.jb.facebook.friends.quiz.json.UsersJson;
 
 /**
  * Created by brekol on 06.12.15.
