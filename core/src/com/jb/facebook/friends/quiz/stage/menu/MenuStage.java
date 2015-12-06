@@ -5,6 +5,7 @@ import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
 import com.jb.facebook.friends.quiz.stage.game.GameScreen;
+import com.jb.facebook.friends.quiz.stage.invite.InviteScreen;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
@@ -48,6 +49,11 @@ public class MenuStage extends AbstractStage {
             }
         }
 
+        if(inviteButton.isClicked()){
+            inviteButton.setClicked(false);
+            myGdxGame.setScreen(new InviteScreen(myGdxGame,gdxFacebook));
+        }
+
         if (exitButton.isClicked()) {
             exitButton.setClicked(false);
             Gdx.app.exit();
@@ -69,5 +75,11 @@ public class MenuStage extends AbstractStage {
         addActor(optionsButton);
         addActor(inviteButton);
         addActor(exitButton);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        Gdx.app.exit();
+        return true;
     }
 }

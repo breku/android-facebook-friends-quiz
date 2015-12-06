@@ -2,22 +2,19 @@ package com.jb.facebook.friends.quiz;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jb.facebook.friends.quiz.application.ApplicationService;
 import com.jb.facebook.friends.quiz.configuration.FacebookConfig;
+import com.jb.facebook.friends.quiz.login.LoginService;
 import com.jb.facebook.friends.quiz.stage.AbstractScreen;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
-import com.jb.facebook.friends.quiz.login.LoginService;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 import de.tomgrill.gdxfacebook.core.GDXFacebookSystem;
 
 public class MyGdxGame extends Game {
     private static final String TAG = "MyGdxGame";
     SpriteBatch batch;
-    Texture img;
 
     private GDXFacebook gdxFacebook;
     private LoginService loginService;
@@ -27,19 +24,17 @@ public class MyGdxGame extends Game {
 
     @Override
     public void create() {
-        createTextureTools();
+        initialize();
         createServices();
 
-        currentScreen = new MenuScreen(this,gdxFacebook);
+        currentScreen = new MenuScreen(this, gdxFacebook);
         setScreen(currentScreen);
-
-
 
         loginService.loginToFacebook();
         applicationService.updateApplicationAccessToken();
     }
 
-    public void setScreen(final AbstractScreen screen){
+    public void setScreen(final AbstractScreen screen) {
         super.setScreen(screen);
         currentScreen = screen;
     }
@@ -48,16 +43,18 @@ public class MyGdxGame extends Game {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+
         currentScreen.render(Gdx.graphics.getDeltaTime());
 
-//        batch.begin();
-//        batch.draw(img, 0, 0);
-//        batch.end();
+        batch.end();
     }
 
-    private void createTextureTools() {
+    private void initialize() {
         batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+        Gdx.input.setCatchBackKey(true);
+
     }
 
     private void createServices() {
@@ -65,5 +62,4 @@ public class MyGdxGame extends Game {
         loginService = new LoginService(gdxFacebook);
         applicationService = new ApplicationService(gdxFacebook);
     }
-
 }

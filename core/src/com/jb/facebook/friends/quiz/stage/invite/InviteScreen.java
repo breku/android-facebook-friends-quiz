@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game;
+package com.jb.facebook.friends.quiz.stage.invite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,26 +10,28 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 /**
  * Created by brekol on 06.12.15.
  */
-public class GameScreen extends AbstractScreen {
+public class InviteScreen extends AbstractScreen {
+    private static final String TAG = "InviteScreen";
     private final MyGdxGame myGdxGame;
     private final GDXFacebook gdxFacebook;
-    private final GameStage gameStage;
+    private final InviteStage inviteStage;
 
-    public GameScreen(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
+    public InviteScreen(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
         this.myGdxGame = myGdxGame;
         this.gdxFacebook = gdxFacebook;
-        gameStage = new GameStage(myGdxGame, gdxFacebook);
+        inviteStage = new InviteStage(myGdxGame, gdxFacebook);
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(gameStage);
+        Gdx.input.setInputProcessor(inviteStage);
     }
 
     @Override
     public void render(float delta) {
-        gameStage.act(delta);
-        gameStage.draw();
+        inviteStage.act(delta);
+        inviteStage.draw();
     }
+
 
 }

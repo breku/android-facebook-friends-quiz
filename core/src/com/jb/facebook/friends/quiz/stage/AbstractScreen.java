@@ -1,11 +1,12 @@
 package com.jb.facebook.friends.quiz.stage;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
 /**
  * Created by brekol on 06.12.15.
  */
-public abstract class AbstractScreen implements Screen{
+public abstract class AbstractScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
