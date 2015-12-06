@@ -1,9 +1,10 @@
 package com.jb.facebook.friends.quiz.stage.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.jb.facebook.friends.quiz.friends.FriendsInfoService;
-import com.jb.facebook.friends.quiz.stage.menu.button.*;
+import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
+import com.jb.facebook.friends.quiz.stage.game.GameScreen;
+import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 /**
@@ -11,14 +12,41 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
  */
 public class MenuStage extends AbstractStage {
 
-    private final FriendsInfoService friendsInfoService;
+    private static final String TAG = "MainMenuScene";
+    final GDXFacebook gdxFacebook;
+    final MyGdxGame myGdxGame;
     private AbstractMenuButton playButton;
     private AbstractMenuButton optionsButton;
     private AbstractMenuButton inviteButton;
     private AbstractMenuButton exitButton;
 
-    public MenuStage(GDXFacebook gdxFacebook) {
-        friendsInfoService = new FriendsInfoService(gdxFacebook);
+    public MenuStage(final MyGdxGame myGdxGame, final GDXFacebook gdxFacebook) {
+        this.myGdxGame = myGdxGame;
+        this.gdxFacebook = gdxFacebook;
+        createButtons();
+    }
+
+    @Override
+    public void draw() {
+        super.draw();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        if (playButton.isClicked()) {
+            playButton.setClicked(false);
+            myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
+        }
+
+        if (exitButton.isClicked()) {
+            exitButton.setClicked(false);
+            Gdx.app.exit();
+        }
+    }
+
+    private void createButtons() {
         playButton = new PlayButton();
         optionsButton = new SettingsButton();
         inviteButton = new InviteButton();
@@ -28,36 +56,5 @@ public class MenuStage extends AbstractStage {
         addActor(optionsButton);
         addActor(inviteButton);
         addActor(exitButton);
-        Gdx.app.log(TAG, "Height" + getHeight());
-        Gdx.app.log(TAG, "Width" + getWidth());
-    }
-
-    @Override
-    public void act() {
-        super.act();
-        Gdx.app.log(TAG, "Act");
-
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-
-        if(playButton.isClicked()){
-            playButton.setClicked(false);
-            friendsInfoService.getFriendsInfo();
-        }
-
-        if(exitButton.isClicked()){
-            exitButton.setClicked(false);
-            Gdx.app.exit();
-        }
-
-    }
-
-    private static final String TAG = "MainMenuScene";
-    @Override
-    public void draw() {
-        super.draw();
     }
 }

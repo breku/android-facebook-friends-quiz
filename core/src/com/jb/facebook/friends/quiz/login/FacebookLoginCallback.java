@@ -22,17 +22,18 @@ public class FacebookLoginCallback implements GDXFacebookCallback<GDXFacebookLog
     @Override
     public void onError(GDXFacebookError error) {
         Gdx.app.log(TAG, String.format("Login finished with error code=%s type=%s message=%s", error.getErrorCode(), error.getErrorType(), error.getErrorMessage()));
+        Gdx.app.exit();
     }
 
     @Override
     public void onFail(Throwable t) {
         Gdx.app.log(TAG, "fail " + t.getMessage(), t);
+        Gdx.app.exit();
     }
 
     @Override
     public void onCancel() {
-
-        Gdx.app.log(TAG, "cancel");
+        Gdx.app.exit();
     }
 
     public String getUserId() {
