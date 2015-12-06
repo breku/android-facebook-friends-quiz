@@ -6,12 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by brekol on 05.12.15.
  */
-public class PlayButton extends MenuButton {
+public class PlayButton extends AbstractMenuButton {
 
     private static final String TAG = "PlayButton";
     public PlayButton() {
-        super(new Texture("menu/play.png"), 0, 960);
-        Gdx.app.log(TAG, "Height" + Gdx.graphics.getHeight());
-        Gdx.app.log(TAG, "Width" + Gdx.graphics.getWidth());
+        super(new Texture("menu/play.png"), 14, 1184);
+
     }
 }

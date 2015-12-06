@@ -12,10 +12,10 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 public class MenuStage extends AbstractStage {
 
     private final FriendsInfoService friendsInfoService;
-    private MenuButton playButton;
-    private MenuButton optionsButton;
-    private MenuButton inviteButton;
-    private MenuButton exitButton;
+    private AbstractMenuButton playButton;
+    private AbstractMenuButton optionsButton;
+    private AbstractMenuButton inviteButton;
+    private AbstractMenuButton exitButton;
 
     public MenuStage(GDXFacebook gdxFacebook) {
         friendsInfoService = new FriendsInfoService(gdxFacebook);
@@ -23,10 +23,13 @@ public class MenuStage extends AbstractStage {
         optionsButton = new SettingsButton();
         inviteButton = new InviteButton();
         exitButton = new ExitButton();
+
         addActor(playButton);
         addActor(optionsButton);
         addActor(inviteButton);
         addActor(exitButton);
+        Gdx.app.log(TAG, "Height" + getHeight());
+        Gdx.app.log(TAG, "Width" + getWidth());
     }
 
     @Override

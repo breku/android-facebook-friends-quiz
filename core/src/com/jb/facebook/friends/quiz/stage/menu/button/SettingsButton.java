@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by brekol on 06.12.15.
  */
-public class SettingsButton extends MenuButton{
+public class SettingsButton extends AbstractMenuButton {
 
     public SettingsButton() {
-        super(new Texture("menu/settings.png"), 0, 0);
+        super(new Texture("menu/settings.png"), 14, 224);
     }
 }
