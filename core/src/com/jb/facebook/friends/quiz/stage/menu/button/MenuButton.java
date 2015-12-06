@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.menu.button;
+package com.jb.facebook.friends.quiz.stage.menu.button;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +24,12 @@ public class MenuButton extends Actor {
         this.actorY = actorY;
         setBounds(actorX, actorY, texture.getWidth(), texture.getHeight());
         addListener(new InputListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 ((MenuButton) event.getTarget()).clicked = true;

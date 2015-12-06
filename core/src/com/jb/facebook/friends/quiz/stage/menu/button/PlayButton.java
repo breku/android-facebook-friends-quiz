@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.menu.button;
+package com.jb.facebook.friends.quiz.stage.menu.button;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +10,7 @@ public class PlayButton extends MenuButton {
 
     private static final String TAG = "PlayButton";
     public PlayButton() {
-        super(new Texture("menu/play.png"), Gdx.graphics.getWidth()/8, Gdx.graphics.getHeight()/2);
+        super(new Texture("menu/play.png"), 0, 960);
         Gdx.app.log(TAG, "Height" + Gdx.graphics.getHeight());
         Gdx.app.log(TAG, "Width" + Gdx.graphics.getWidth());
     }

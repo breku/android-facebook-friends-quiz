@@ -1,9 +1,9 @@
-package com.jb.facebook.friends.quiz.menu;
+package com.jb.facebook.friends.quiz.stage.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.jb.facebook.friends.quiz.friends.FriendsInfoService;
-import com.jb.facebook.friends.quiz.menu.button.PlayButton;
+import com.jb.facebook.friends.quiz.stage.menu.button.*;
+import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 /**
@@ -12,14 +12,21 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 public class MenuStage extends AbstractStage {
 
     private final FriendsInfoService friendsInfoService;
-    private PlayButton playButton;
+    private MenuButton playButton;
+    private MenuButton optionsButton;
+    private MenuButton inviteButton;
+    private MenuButton exitButton;
 
     public MenuStage(GDXFacebook gdxFacebook) {
         friendsInfoService = new FriendsInfoService(gdxFacebook);
-
         playButton = new PlayButton();
-        playButton.setTouchable(Touchable.enabled);
+        optionsButton = new SettingsButton();
+        inviteButton = new InviteButton();
+        exitButton = new ExitButton();
         addActor(playButton);
+        addActor(optionsButton);
+        addActor(inviteButton);
+        addActor(exitButton);
     }
 
     @Override

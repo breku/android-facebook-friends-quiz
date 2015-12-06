@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.menu;
+package com.jb.facebook.friends.quiz.stage;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -9,5 +9,5 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 public class AbstractStage extends Stage {
 
     public AbstractStage() {
-        super(new StretchViewport(1080,1900));}
+        super(new StretchViewport(1080,1920));}
 }
