@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 /**
  * Created by brekol on 06.12.15.
@@ -24,16 +25,19 @@ public abstract class AbstractMenuButton extends Actor {
         this.actorX = actorX;
         this.actorY = actorY;
         textureRegion = new TextureRegion(texture);
+        setScale(SCALE);
         setBounds(actorX, actorY, texture.getWidth(), texture.getHeight());
         addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                addAction(Actions.scaleTo(1f, 1f));
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                addAction(Actions.scaleTo(SCALE, SCALE));
                 ((AbstractMenuButton) event.getTarget()).clicked = true;
                 Gdx.app.log(TAG, "Clicked");
             }
@@ -50,7 +54,12 @@ public abstract class AbstractMenuButton extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(textureRegion, actorX, actorY, getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), SCALE,
-                SCALE, getRotation());
+        batch.draw(textureRegion, actorX, actorY, getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX(),
+                getScaleY(), getRotation());
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
     }
 }

@@ -48,6 +48,11 @@ public class MenuStage extends AbstractStage {
             friendsInfoService.getFriendsInfo();
         }
 
+        if(exitButton.isClicked()){
+            exitButton.setClicked(false);
+            Gdx.app.exit();
+        }
+
     }
 
     private static final String TAG = "MainMenuScene";
