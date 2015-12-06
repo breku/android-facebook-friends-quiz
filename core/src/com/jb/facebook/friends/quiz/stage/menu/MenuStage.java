@@ -3,6 +3,7 @@ package com.jb.facebook.friends.quiz.stage.menu;
 import com.badlogic.gdx.Gdx;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
+import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
 import com.jb.facebook.friends.quiz.stage.game.GameScreen;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
@@ -19,11 +20,13 @@ public class MenuStage extends AbstractStage {
     private AbstractMenuButton optionsButton;
     private AbstractMenuButton inviteButton;
     private AbstractMenuButton exitButton;
+    private ToastWindow toastWindow;
 
     public MenuStage(final MyGdxGame myGdxGame, final GDXFacebook gdxFacebook) {
         this.myGdxGame = myGdxGame;
         this.gdxFacebook = gdxFacebook;
         createButtons();
+        createToastWindow();
     }
 
     @Override
@@ -37,13 +40,23 @@ public class MenuStage extends AbstractStage {
 
         if (playButton.isClicked()) {
             playButton.setClicked(false);
-            myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
+
+            if(gdxFacebook.isLoggedIn()){
+                myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
+            }else {
+                toastWindow.showToast("You have to sign in to your facebook account\nto play.");
+            }
         }
 
         if (exitButton.isClicked()) {
             exitButton.setClicked(false);
             Gdx.app.exit();
         }
+    }
+
+    private void createToastWindow() {
+        toastWindow = new ToastWindow();
+        addActor(toastWindow);
     }
 
     private void createButtons() {
