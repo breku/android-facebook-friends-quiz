@@ -95,6 +95,7 @@ project(":core") {
         compile "de.tomgrill.gdxfacebook:gdx-facebook-core:0.5.0-SNAPSHOT"
         compile "com.google.code.gson:gson:2.5"
         compile "org.apache.commons:commons-lang3:3.4"
+        compile "com.google.guava:guava:18.0"
     }
 }
 
