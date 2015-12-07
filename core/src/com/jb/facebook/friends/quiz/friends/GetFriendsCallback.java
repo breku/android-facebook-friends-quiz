@@ -13,10 +13,10 @@ import de.tomgrill.gdxfacebook.core.GDXFacebookGraphResult;
  */
 public class GetFriendsCallback implements GDXFacebookCallback<GDXFacebookGraphResult> {
 
-
     private static final String TAG = "GetFriendsGraphRequest";
 
     private final UserDatabaseService userDatabaseService = new UserDatabaseService();
+
     @Override
     public void onSuccess(GDXFacebookGraphResult result) {
         final UsersJson usersJson = new Gson().fromJson(result.getResultAsJson(), UsersJson.class);

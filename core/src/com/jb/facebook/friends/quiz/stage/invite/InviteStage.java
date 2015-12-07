@@ -2,7 +2,6 @@ package com.jb.facebook.friends.quiz.stage.invite;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;

@@ -8,6 +8,7 @@ import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
+import com.jb.facebook.friends.quiz.stage.game.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
@@ -28,15 +29,15 @@ public class GameStage extends AbstractStage {
     private CallbackListener initializeUsersListener = new CallbackListener();
     private BitmapFont font;
 
+    private ImageService imageService = new ImageService();
+    private List<UserRow> userRows = new ArrayList<UserRow>();
+
     public GameStage(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
         this.myGdxGame = myGdxGame;
         createButtons();
         initialize();
     }
-
-
-    private List<UserRow> userRows = new ArrayList<UserRow>();
 
     @Override
     public void draw() {
@@ -45,16 +46,16 @@ public class GameStage extends AbstractStage {
             refreshButton.setClicked(false);
         }
 
-        if(initializeUsersListener.isCallbackSucceed()){
+        if (initializeUsersListener.isCallbackSucceed()) {
             initializeUsersListener.setCallbackSucceed(false);
             final List<UserDetails> userDetailsList = gameService.getUserDetailsList();
             for (int i = 0; i < userDetailsList.size(); i++) {
-                userRows.add(new UserRow(userDetailsList.get(i),i));
+
+                userRows.add(new UserRow(imageService, userDetailsList.get(i), i));
             }
             for (UserRow userRow : userRows) {
                 addActor(userRow);
             }
-
         }
 
         if (backButton.isClicked()) {
@@ -78,7 +79,6 @@ public class GameStage extends AbstractStage {
         font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" +
                 ".png"), false);
         font.setColor(Color.BLACK);
-
     }
 
     private void returnToMenu() {

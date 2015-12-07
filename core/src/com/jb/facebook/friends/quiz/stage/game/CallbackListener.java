@@ -12,6 +12,6 @@ public class CallbackListener {
     }
 
     public void setCallbackSucceed(boolean callbackSucceed) {
-        this.callbackSucceed = true;
+        this.callbackSucceed = callbackSucceed;
     }
 }

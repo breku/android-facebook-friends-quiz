@@ -8,8 +8,7 @@ import com.jb.facebook.friends.quiz.stage.common.AbstractButton;
  */
 public abstract class AbstractMenuButton extends AbstractButton {
 
-
     public AbstractMenuButton(Texture texture, float actorX, float actorY) {
-        super(texture, actorX, actorY, 0.875f,1.0f);
+        super(texture, actorX, actorY, 0.875f, 1.0f);
     }
 }

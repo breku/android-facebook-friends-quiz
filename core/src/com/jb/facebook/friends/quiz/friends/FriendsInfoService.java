@@ -1,7 +1,6 @@
 package com.jb.facebook.friends.quiz.friends;
 
 import com.badlogic.gdx.Gdx;
-import com.jb.facebook.friends.quiz.application.ApplicationService;
 import com.jb.facebook.friends.quiz.callback.DefaultJsonFacebookCallback;
 import com.jb.facebook.friends.quiz.configuration.FacebookConfig;
 import com.jb.facebook.friends.quiz.database.UserPreferencesService;
@@ -15,8 +14,8 @@ public class FriendsInfoService {
     private static final String TAG = "FriendsInfoService";
     private final GDXFacebook gdxFacebook;
 
-
     private final UserPreferencesService userPreferencesService;
+
     public FriendsInfoService(GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
         this.userPreferencesService = new UserPreferencesService();
@@ -37,7 +36,8 @@ public class FriendsInfoService {
 
     private void getAppUsersIds() {
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
-                .setNode(FacebookConfig.APPLICATION_ID + "/accounts/test-users").putField("access_token", userPreferencesService.getApplicationAccessTokenKey());
+                .setNode(FacebookConfig.APPLICATION_ID + "/accounts/test-users").putField("access_token", userPreferencesService
+                        .getApplicationAccessTokenKey());
 
         gdxFacebook.newGraphRequest(request, new GetFriendsCallback());
     }

@@ -2,8 +2,6 @@ package com.jb.facebook.friends.quiz.json;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * Created by brekol on 05.12.15.
  */

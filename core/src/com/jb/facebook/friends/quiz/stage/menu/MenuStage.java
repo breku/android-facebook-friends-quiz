@@ -42,22 +42,28 @@ public class MenuStage extends AbstractStage {
         if (playButton.isClicked()) {
             playButton.setClicked(false);
 
-            if(gdxFacebook.isLoggedIn()){
+            if (gdxFacebook.isLoggedIn()) {
                 myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
-            }else {
+            } else {
                 toastWindow.showToast("You have to sign in to your facebook account\nto play.");
             }
         }
 
-        if(inviteButton.isClicked()){
+        if (inviteButton.isClicked()) {
             inviteButton.setClicked(false);
-            myGdxGame.setScreen(new InviteScreen(myGdxGame,gdxFacebook));
+            myGdxGame.setScreen(new InviteScreen(myGdxGame, gdxFacebook));
         }
 
         if (exitButton.isClicked()) {
             exitButton.setClicked(false);
             Gdx.app.exit();
         }
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        Gdx.app.exit();
+        return true;
     }
 
     private void createToastWindow() {
@@ -75,11 +81,5 @@ public class MenuStage extends AbstractStage {
         addActor(optionsButton);
         addActor(inviteButton);
         addActor(exitButton);
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        Gdx.app.exit();
-        return true;
     }
 }

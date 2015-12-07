@@ -10,7 +10,8 @@ public class RefreshButton extends AbstractButton {
 
     private static final float SCALE = 0.25f;
     private static final float TARGET_SCALE = 0.4f;
+
     public RefreshButton() {
-        super(new Texture("invite/refresh.png"), 750, 1550, SCALE,TARGET_SCALE);
+        super(new Texture("invite/refresh.png"), 750, 1550, SCALE, TARGET_SCALE);
     }
 }

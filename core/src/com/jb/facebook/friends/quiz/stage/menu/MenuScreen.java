@@ -11,15 +11,13 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 public class MenuScreen extends AbstractScreen {
     private final MenuStage menuStage;
 
-
     public MenuScreen(final MyGdxGame myGdxGame, final GDXFacebook gdxFacebook) {
-        menuStage = new MenuStage(myGdxGame,gdxFacebook);
+        menuStage = new MenuStage(myGdxGame, gdxFacebook);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(menuStage);
-
     }
 
     @Override
@@ -27,5 +25,4 @@ public class MenuScreen extends AbstractScreen {
         menuStage.act(delta);
         menuStage.draw();
     }
-
 }

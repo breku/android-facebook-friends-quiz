@@ -12,13 +12,12 @@ public class AbstractPreferencesService {
 
     private final Preferences preferences = Gdx.app.getPreferences(PREFERENCES_NAME);
 
-    protected void saveString(final String key, final String value){
-        preferences.putString(key,value);
+    protected void saveString(final String key, final String value) {
+        preferences.putString(key, value);
         preferences.flush();
     }
 
-    protected String getString(final String key){
+    protected String getString(final String key) {
         return preferences.getString(key);
     }
-
 }

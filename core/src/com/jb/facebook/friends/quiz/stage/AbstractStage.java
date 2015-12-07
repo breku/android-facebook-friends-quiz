@@ -9,7 +9,6 @@ import com.jb.facebook.friends.quiz.configuration.ContextConstants;
  */
 public class AbstractStage extends Stage {
 
-
     public AbstractStage() {
         super(new StretchViewport(ContextConstants.SCREEN_WIDTH, ContextConstants.SCREEN_HEIGHT));
     }

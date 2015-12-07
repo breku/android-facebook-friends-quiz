@@ -58,7 +58,7 @@ public class AbstractButton extends Actor {
     public void draw(Batch batch, float parentAlpha) {
 
         batch.draw(textureRegion, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX
-                (), getScaleY(),
+                        (), getScaleY(),
                 getRotation());
     }
 

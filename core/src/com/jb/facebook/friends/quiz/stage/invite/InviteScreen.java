@@ -1,10 +1,8 @@
 package com.jb.facebook.friends.quiz.stage.invite;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractScreen;
-import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 /**
@@ -32,6 +30,4 @@ public class InviteScreen extends AbstractScreen {
         inviteStage.act(delta);
         inviteStage.draw();
     }
-
-
 }

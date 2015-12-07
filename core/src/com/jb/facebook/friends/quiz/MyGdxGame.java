@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jb.facebook.friends.quiz.application.ApplicationService;
 import com.jb.facebook.friends.quiz.configuration.FacebookConfig;
 import com.jb.facebook.friends.quiz.login.LoginService;
@@ -55,7 +54,6 @@ public class MyGdxGame extends Game {
     private void initialize() {
         batch = new SpriteBatch();
         Gdx.input.setCatchBackKey(true);
-
     }
 
     private void createServices() {

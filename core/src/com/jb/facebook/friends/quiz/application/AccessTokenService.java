@@ -5,5 +5,4 @@ package com.jb.facebook.friends.quiz.application;
  */
 public interface AccessTokenService {
 
-
 }

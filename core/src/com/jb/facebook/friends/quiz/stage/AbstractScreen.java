@@ -1,6 +1,5 @@
 package com.jb.facebook.friends.quiz.stage;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
 /**

@@ -1,6 +1,5 @@
 package com.jb.facebook.friends.quiz.stage.game;
 
-import com.jb.facebook.friends.quiz.callback.DefaultJsonFacebookCallback;
 import com.jb.facebook.friends.quiz.database.UserDatabaseService;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.json.UsersJson;
@@ -14,22 +13,21 @@ import java.util.List;
  */
 public class GameService {
 
-
     private final GDXFacebook gdxFacebook;
+    private final UserDatabaseService userDatabaseService = new UserDatabaseService();
 
     public GameService(GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
     }
 
-    public void initializeUsers(CallbackListener initializeUsersListener){
+    public void initializeUsers(CallbackListener initializeUsersListener) {
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
-                .setNode("me/friends").putField("fields","picture,name").useCurrentAccessToken();
+                .setNode("me/friends").putField("fields", "picture,name").useCurrentAccessToken();
 
         gdxFacebook.newGraphRequest(request, new InitializeUsersCallback(initializeUsersListener));
     }
-    private final UserDatabaseService userDatabaseService = new UserDatabaseService();
 
-    public List<UserDetails> getUserDetailsList(){
+    public List<UserDetails> getUserDetailsList() {
         final UsersJson users = userDatabaseService.getUsers();
         return users.getUserDetailsList();
     }

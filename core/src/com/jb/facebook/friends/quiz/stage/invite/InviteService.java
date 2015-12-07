@@ -15,15 +15,11 @@ public class InviteService {
         this.gdxFacebook = gdxFacebook;
     }
 
-    public void getUsersToInvite(){
+    public void getUsersToInvite() {
 
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
-                .setNode("me/friends").putField("fields","likes").useCurrentAccessToken();
+                .setNode("me/friends").putField("fields", "likes").useCurrentAccessToken();
 
         gdxFacebook.newGraphRequest(request, new DefaultJsonFacebookCallback());
-
     }
-
-
-
 }

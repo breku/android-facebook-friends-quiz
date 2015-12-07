@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by brekol on 06.12.15.
  */
-public class ProfilePictureData  {
+public class ProfilePictureData {
 
     @SerializedName("is_silhouette")
     private boolean isBlank;
