@@ -26,7 +26,7 @@ public class ApplicationService {
         final String applicationAccessTokenKey = userPreferencesService.getApplicationAccessTokenKey();
         if (StringUtils.isNotBlank(applicationAccessTokenKey)) {
             Gdx.app.log(TAG, "<< Got application access token from shared preferences");
-            Gdx.app.log(TAG, ">> Service finished");
+            Gdx.app.log(TAG, "<< Service finished");
             return;
         } else {
             Gdx.app.log(TAG, ">> Token from shared preferences is empty. Making a call.");

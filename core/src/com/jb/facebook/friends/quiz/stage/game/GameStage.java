@@ -13,6 +13,7 @@ import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,9 @@ public class GameStage extends AbstractStage {
     private CallbackListener initializeUsersListener = new CallbackListener();
     private BitmapFont font;
 
-    private ImageService imageService = new ImageService();
+    @Inject
+    ImageService imageService;
+
     private List<UserRow> userRows = new ArrayList<UserRow>();
 
     public GameStage(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {

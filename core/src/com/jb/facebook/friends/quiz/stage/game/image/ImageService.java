@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
+import javax.inject.Inject;
 import java.util.concurrent.*;
 
 /**
@@ -17,6 +18,11 @@ public class ImageService {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private Cache<String, TextureRegion> cache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
             .MINUTES).build();
+
+    @Inject
+    public ImageService() {
+
+    }
 
     public TextureRegion getImage(final String url) {
 

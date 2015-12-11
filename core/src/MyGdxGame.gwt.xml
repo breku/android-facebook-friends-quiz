@@ -3,4 +3,5 @@
         "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
 <module>
     <source path="com/jb/facebook/friends/quiz"/>
+    <super-source path="emu"/>
 </module>

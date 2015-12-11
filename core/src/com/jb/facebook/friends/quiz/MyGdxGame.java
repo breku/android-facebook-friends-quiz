@@ -8,9 +8,12 @@ import com.jb.facebook.friends.quiz.application.ApplicationService;
 import com.jb.facebook.friends.quiz.configuration.FacebookConfig;
 import com.jb.facebook.friends.quiz.login.LoginService;
 import com.jb.facebook.friends.quiz.stage.AbstractScreen;
+import com.jb.facebook.friends.quiz.stage.game.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 import de.tomgrill.gdxfacebook.core.GDXFacebookSystem;
+
+import javax.inject.Inject;
 
 public class MyGdxGame extends Game {
     private static final String TAG = "MyGdxGame";
@@ -21,6 +24,9 @@ public class MyGdxGame extends Game {
     private ApplicationService applicationService;
 
     private AbstractScreen currentScreen;
+
+    @Inject
+    ImageService imageService;
 
     @Override
     public void create() {
