@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
+import com.jb.facebook.friends.quiz.stage.ScreenManager;
+import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
 import com.jb.facebook.friends.quiz.stage.game.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
@@ -22,7 +24,6 @@ import java.util.List;
  */
 public class GameStage extends AbstractStage {
 
-    private final MyGdxGame myGdxGame;
     private final GDXFacebook gdxFacebook;
     private RefreshButton refreshButton;
     private BackButton backButton;
@@ -31,13 +32,12 @@ public class GameStage extends AbstractStage {
     private BitmapFont font;
 
     @Inject
-    ImageService imageService;
+    ImageService imageService = new ImageService();
 
     private List<UserRow> userRows = new ArrayList<UserRow>();
 
-    public GameStage(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
+    public GameStage(final GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
-        this.myGdxGame = myGdxGame;
         createButtons();
         initialize();
     }
@@ -70,7 +70,7 @@ public class GameStage extends AbstractStage {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.BACK) {
-            myGdxGame.setScreen(new MenuScreen(myGdxGame, gdxFacebook));
+            returnToMenu();
             return true;
         }
         return false;
@@ -85,7 +85,7 @@ public class GameStage extends AbstractStage {
     }
 
     private void returnToMenu() {
-        myGdxGame.setScreen(new MenuScreen(myGdxGame, gdxFacebook));
+        setTargetScreenType(ScreenType.MENU);
     }
 
     private void createButtons() {

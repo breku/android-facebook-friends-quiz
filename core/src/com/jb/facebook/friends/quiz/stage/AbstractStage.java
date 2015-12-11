@@ -7,9 +7,19 @@ import com.jb.facebook.friends.quiz.configuration.ContextConstants;
 /**
  * Created by brekol on 06.12.15.
  */
-public class AbstractStage extends Stage {
+public abstract class AbstractStage extends Stage {
+
+    private ScreenType targetScreenType = ScreenType.NONE;
 
     public AbstractStage() {
         super(new StretchViewport(ContextConstants.SCREEN_WIDTH, ContextConstants.SCREEN_HEIGHT));
+    }
+
+    public ScreenType getTargetScreenType() {
+        return targetScreenType;
+    }
+
+    public void setTargetScreenType(ScreenType targetScreenType) {
+        this.targetScreenType = targetScreenType;
     }
 }

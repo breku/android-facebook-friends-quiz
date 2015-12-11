@@ -1,11 +1,29 @@
 package com.jb.facebook.friends.quiz.stage;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 /**
  * Created by brekol on 06.12.15.
  */
 public abstract class AbstractScreen implements Screen {
+
+    protected final AbstractStage stage;
+
+    protected AbstractScreen(AbstractStage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void render(float delta) {
+        stage.act(delta);
+        stage.draw();
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -29,6 +47,10 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.setTargetScreenType(ScreenType.NONE);
+    }
 
+    public ScreenType getTargetScreenType() {
+        return stage.getTargetScreenType();
     }
 }

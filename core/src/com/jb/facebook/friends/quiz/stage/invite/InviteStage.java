@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
+import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
@@ -58,7 +59,7 @@ public class InviteStage extends AbstractStage {
     }
 
     private void returnToMenu() {
-        myGdxGame.setScreen(new MenuScreen(myGdxGame, gdxFacebook));
+//        myGdxGame.setScreen(new MenuScreen());
     }
 
     private void initializeServices() {

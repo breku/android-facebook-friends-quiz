@@ -1,11 +1,10 @@
 package com.jb.facebook.friends.quiz.stage.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
+import com.jb.facebook.friends.quiz.stage.ScreenManager;
+import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
-import com.jb.facebook.friends.quiz.stage.game.GameScreen;
-import com.jb.facebook.friends.quiz.stage.invite.InviteScreen;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
@@ -15,16 +14,16 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 public class MenuStage extends AbstractStage {
 
     private static final String TAG = "MainMenuScene";
-    final GDXFacebook gdxFacebook;
-    final MyGdxGame myGdxGame;
+
+    private final GDXFacebook gdxFacebook;
+
     private AbstractMenuButton playButton;
     private AbstractMenuButton optionsButton;
     private AbstractMenuButton inviteButton;
     private AbstractMenuButton exitButton;
     private ToastWindow toastWindow;
 
-    public MenuStage(final MyGdxGame myGdxGame, final GDXFacebook gdxFacebook) {
-        this.myGdxGame = myGdxGame;
+    public MenuStage(final GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
         createButtons();
         createToastWindow();
@@ -43,7 +42,8 @@ public class MenuStage extends AbstractStage {
             playButton.setClicked(false);
 
             if (gdxFacebook.isLoggedIn()) {
-                myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
+                setTargetScreenType(ScreenType.GAME);
+//                myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
             } else {
                 toastWindow.showToast("You have to sign in to your facebook account\nto play.");
             }
@@ -51,7 +51,7 @@ public class MenuStage extends AbstractStage {
 
         if (inviteButton.isClicked()) {
             inviteButton.setClicked(false);
-            myGdxGame.setScreen(new InviteScreen(myGdxGame, gdxFacebook));
+//            myGdxGame.setScreen(new InviteScreen(myGdxGame, gdxFacebook));
         }
 
         if (exitButton.isClicked()) {
@@ -82,4 +82,5 @@ public class MenuStage extends AbstractStage {
         addActor(inviteButton);
         addActor(exitButton);
     }
+
 }

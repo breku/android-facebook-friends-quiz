@@ -3,6 +3,7 @@ package com.jb.facebook.friends.quiz.stage.invite;
 import com.badlogic.gdx.Gdx;
 import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.stage.AbstractScreen;
+import com.jb.facebook.friends.quiz.stage.ScreenType;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 /**
@@ -12,22 +13,29 @@ public class InviteScreen extends AbstractScreen {
     private static final String TAG = "InviteScreen";
     private final MyGdxGame myGdxGame;
     private final GDXFacebook gdxFacebook;
-    private final InviteStage inviteStage;
 
     public InviteScreen(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
+        super(new InviteStage(myGdxGame, gdxFacebook));
+
+
         this.myGdxGame = myGdxGame;
         this.gdxFacebook = gdxFacebook;
-        inviteStage = new InviteStage(myGdxGame, gdxFacebook);
+
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(inviteStage);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-        inviteStage.act(delta);
-        inviteStage.draw();
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public ScreenType getTargetScreenType() {
+        return stage.getTargetScreenType();
     }
 }
