@@ -2,7 +2,7 @@ package com.jb.facebook.friends.quiz.stage;
 
 import com.badlogic.gdx.Gdx;
 import com.jb.facebook.friends.quiz.MyGdxGame;
-import com.jb.facebook.friends.quiz.stage.game.GameScreen;
+import com.jb.facebook.friends.quiz.stage.pregame.PreGameScreen;
 import com.jb.facebook.friends.quiz.stage.invite.InviteScreen;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 
@@ -15,14 +15,14 @@ public class ScreenManager {
 
     private static final String TAG = "ScreenManager";
     private final MenuScreen menuScreen;
-    private final GameScreen gameScreen;
+    private final PreGameScreen preGameScreen;
 
     private final InviteScreen inviteScreen;
 
     @Inject
-    public ScreenManager(MenuScreen menuScreen, GameScreen gameScreen, InviteScreen inviteScreen) {
+    public ScreenManager(MenuScreen menuScreen, PreGameScreen preGameScreen, InviteScreen inviteScreen) {
         this.menuScreen = menuScreen;
-        this.gameScreen = gameScreen;
+        this.preGameScreen = preGameScreen;
         this.inviteScreen = inviteScreen;
     }
 
@@ -50,8 +50,8 @@ public class ScreenManager {
 
     private AbstractScreen getTargetScreen(ScreenType screenType) {
 
-        if (ScreenType.GAME.equals(screenType)) {
-            return gameScreen;
+        if (ScreenType.PRE_GAME.equals(screenType)) {
+            return preGameScreen;
         } else if (ScreenType.MENU.equals(screenType)) {
             return menuScreen;
         }
@@ -59,7 +59,7 @@ public class ScreenManager {
     }
 
     private void disposeCurrentScreen(AbstractScreen currentScreen) {
-        Gdx.app.log(TAG, ">> Disposing current screen=" + currentScreen);
+        Gdx.app.log(TAG, ">> Disposing current screen=" + currentScreen.getClass().getSimpleName());
         currentScreen.dispose();
         Gdx.app.log(TAG, "<< Disposing finished");
     }

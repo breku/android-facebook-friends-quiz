@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game;
+package com.jb.facebook.friends.quiz.stage.pregame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,7 +8,7 @@ import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
-import com.jb.facebook.friends.quiz.stage.game.image.ImageService;
+import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by brekol on 06.12.15.
  */
-public class GameStage extends AbstractStage {
+public class PreGameStage extends AbstractStage {
 
     private final GDXFacebook gdxFacebook;
     private final GameService gameService;
@@ -31,7 +31,7 @@ public class GameStage extends AbstractStage {
     private List<UserRow> userRows = new ArrayList<>();
 
     @Inject
-    public GameStage(final GDXFacebook gdxFacebook, final GameService gameService, final ImageService imageService) {
+    public PreGameStage(final GDXFacebook gdxFacebook, final GameService gameService, final ImageService imageService) {
         this.gdxFacebook = gdxFacebook;
         this.gameService = gameService;
         this.imageService = imageService;

@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game;
+package com.jb.facebook.friends.quiz.stage.pregame;
 
 /**
  * Created by brekol on 06.12.15.

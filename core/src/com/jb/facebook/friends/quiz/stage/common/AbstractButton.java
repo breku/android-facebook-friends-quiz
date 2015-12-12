@@ -41,7 +41,7 @@ public class AbstractButton extends Actor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 addAction(Actions.scaleTo(AbstractButton.this.originalScale, AbstractButton.this.originalScale));
                 ((AbstractButton) event.getTarget()).clicked = true;
-                Gdx.app.log(TAG, "Clicked");
+                Gdx.app.log(TAG, AbstractButton.this.getClass().getSimpleName() + " clicked");
             }
         });
     }

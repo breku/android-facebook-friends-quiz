@@ -2,7 +2,6 @@ package com.jb.facebook.friends.quiz.stage.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
-import com.jb.facebook.friends.quiz.stage.ScreenManager;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
@@ -45,7 +44,7 @@ public class MenuStage extends AbstractStage {
             playButton.setClicked(false);
 
             if (gdxFacebook.isLoggedIn()) {
-                setTargetScreenType(ScreenType.GAME);
+                setTargetScreenType(ScreenType.PRE_GAME);
             } else {
                 toastWindow.showToast("You have to sign in to your facebook account\nto play.");
             }

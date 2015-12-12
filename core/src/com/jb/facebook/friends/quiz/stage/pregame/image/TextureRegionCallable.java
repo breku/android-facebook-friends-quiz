@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game.image;
+package com.jb.facebook.friends.quiz.stage.pregame.image;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.MathUtils;

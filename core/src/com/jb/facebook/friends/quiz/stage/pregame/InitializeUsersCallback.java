@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game;
+package com.jb.facebook.friends.quiz.stage.pregame;
 
 import com.badlogic.gdx.Gdx;
 import com.google.gson.Gson;
