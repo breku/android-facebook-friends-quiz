@@ -7,6 +7,8 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 import de.tomgrill.gdxfacebook.core.GDXFacebookGraphRequest;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
+
 /**
  * Created by brekol on 05.12.15.
  */
@@ -15,6 +17,7 @@ public class ApplicationService {
     private final GDXFacebook gdxFacebook;
     private final UserPreferencesService userPreferencesService = new UserPreferencesService();
 
+    @Inject
     public ApplicationService(GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
     }

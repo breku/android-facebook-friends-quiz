@@ -3,6 +3,7 @@ package com.jb.facebook.friends.quiz.login;
 import com.badlogic.gdx.Gdx;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class LoginService {
     private static final String TAG = "LoginService";
     private final GDXFacebook gdxFacebook;
 
+    @Inject
     public LoginService(GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
     }

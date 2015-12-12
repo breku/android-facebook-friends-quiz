@@ -8,6 +8,8 @@ import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
+import javax.inject.Inject;
+
 /**
  * Created by brekol on 05.12.15.
  */
@@ -23,6 +25,7 @@ public class MenuStage extends AbstractStage {
     private AbstractMenuButton exitButton;
     private ToastWindow toastWindow;
 
+    @Inject
     public MenuStage(final GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
         createButtons();
