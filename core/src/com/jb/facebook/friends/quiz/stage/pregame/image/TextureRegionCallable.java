@@ -26,7 +26,7 @@ public class TextureRegionCallable implements Callable<ImageDetails> {
     }
 
     private ImageDetails getTextureRegion() {
-        byte[] bytes = new byte[200 * 1024]; // assuming the content is not bigger than 200kb.
+        byte[] bytes = new byte[1024 * 1024]; // assuming the content is not bigger than 200kb.
         int numBytes = download(bytes, url);
         if (numBytes != 0) {
             // load the pixmap, make it a power of two if necessary (not needed for GL ES 2.0!)

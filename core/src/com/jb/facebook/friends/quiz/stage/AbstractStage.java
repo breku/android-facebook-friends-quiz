@@ -23,7 +23,7 @@ public abstract class AbstractStage extends Stage {
         this.targetScreenType = targetScreenType;
     }
 
-    public void initialize(){
-
+    public void initialize() {
+        // intentionally left blank
     }
 }

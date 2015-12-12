@@ -21,11 +21,13 @@ public class UserRow extends Actor {
     private final BitmapFont font;
     private final String username;
     private final String userId;
+    private final GameService gameService;
     private int index;
     private TextureRegion textureRegion;
     private boolean clicked = false;
 
-    public UserRow(ImageService imageService, UserDetails userDetails, int index) {
+    public UserRow(final GameService gameService, ImageService imageService, UserDetails userDetails, int index) {
+        this.gameService = gameService;
         this.username = userDetails.getName();
         this.userId = userDetails.getId();
         this.index = index;
@@ -33,7 +35,6 @@ public class UserRow extends Actor {
         font.setColor(Color.BLACK);
         textureRegion = imageService.getImage(userDetails.getProfilePicture().getProfilePictureData().getUrl());
         setBounds(100, getRowY(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
-
 
         setDebug(true);
         addListener(new InputListener() {
@@ -47,6 +48,7 @@ public class UserRow extends Actor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 ((UserRow) event.getTarget()).clicked = true;
                 Gdx.app.log(TAG, "UserRow Clicked");
+                gameService.getUserModel(userId);
             }
         });
     }

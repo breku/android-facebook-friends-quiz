@@ -8,9 +8,8 @@ import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
-import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
-import de.tomgrill.gdxfacebook.core.GDXFacebook;
+import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.List;
  */
 public class PreGameStage extends AbstractStage {
 
-    private final GDXFacebook gdxFacebook;
     private final GameService gameService;
     private final ImageService imageService;
     private RefreshButton refreshButton;
@@ -31,8 +29,7 @@ public class PreGameStage extends AbstractStage {
     private List<UserRow> userRows = new ArrayList<>();
 
     @Inject
-    public PreGameStage(final GDXFacebook gdxFacebook, final GameService gameService, final ImageService imageService) {
-        this.gdxFacebook = gdxFacebook;
+    public PreGameStage(final GameService gameService, final ImageService imageService) {
         this.gameService = gameService;
         this.imageService = imageService;
     }
@@ -40,6 +37,11 @@ public class PreGameStage extends AbstractStage {
     @Override
     public void draw() {
         super.draw();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
         if (refreshButton.isClicked()) {
             refreshButton.setClicked(false);
         }
@@ -49,7 +51,7 @@ public class PreGameStage extends AbstractStage {
             final List<UserDetails> userDetailsList = gameService.getUserDetailsList();
             for (int i = 0; i < userDetailsList.size(); i++) {
 
-                userRows.add(new UserRow(imageService, userDetailsList.get(i), i));
+                userRows.add(new UserRow(gameService, imageService, userDetailsList.get(i), i));
             }
             for (UserRow userRow : userRows) {
                 addActor(userRow);

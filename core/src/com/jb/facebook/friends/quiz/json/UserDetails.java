@@ -22,6 +22,17 @@ public class UserDetails {
     @SerializedName("picture")
     private ProfilePicture profilePicture;
 
+    @SerializedName("music")
+    private Music music;
+
+    public Music getMusic() {
+        return music;
+    }
+
+    public void setMusic(Music music) {
+        this.music = music;
+    }
+
     public Likes getLikes() {
         return likes;
     }
