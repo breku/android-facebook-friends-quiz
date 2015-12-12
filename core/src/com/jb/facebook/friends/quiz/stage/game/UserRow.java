@@ -29,13 +29,19 @@ public class UserRow extends Actor {
         textureRegion = imageService.getImage(userDetails.getProfilePicture().getProfilePictureData().getUrl());
     }
 
+    private static final int TOP_LINE = 1600;
+
     @Override
     public void draw(Batch spriteBatch, float parentAlpha) {
-        font.draw(spriteBatch, username, 100, 1900 - (index * 50));
+        font.draw(spriteBatch, username, 200, getRowY());
 
         if (textureRegion != null) {
-            spriteBatch.draw(textureRegion, 100, 100);
+            spriteBatch.draw(textureRegion, 100, getRowY());
         }
+    }
+
+    private int getRowY() {
+        return TOP_LINE - (index * 200);
     }
 
     @Override
