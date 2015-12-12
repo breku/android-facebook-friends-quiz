@@ -22,4 +22,8 @@ public abstract class AbstractStage extends Stage {
     public void setTargetScreenType(ScreenType targetScreenType) {
         this.targetScreenType = targetScreenType;
     }
+
+    public void initialize(){
+
+    }
 }

@@ -21,15 +21,15 @@ public class ApplicationService {
 
     public void updateApplicationAccessToken() {
 
-        Gdx.app.log(TAG, ">> Service called");
+        Gdx.app.log(TAG, "#updateApplicationAccessToken>> Service called");
 
         final String applicationAccessTokenKey = userPreferencesService.getApplicationAccessTokenKey();
         if (StringUtils.isNotBlank(applicationAccessTokenKey)) {
-            Gdx.app.log(TAG, "<< Got application access token from shared preferences");
-            Gdx.app.log(TAG, "<< Service finished");
+            Gdx.app.log(TAG, "#updateApplicationAccessToken<< Got application access token from shared preferences");
+            Gdx.app.log(TAG, "#updateApplicationAccessToken<< Service finished");
             return;
         } else {
-            Gdx.app.log(TAG, ">> Token from shared preferences is empty. Making a call.");
+            Gdx.app.log(TAG, "#updateApplicationAccessToken>> Token from shared preferences is empty. Making a call.");
             final GDXFacebookGraphRequest appAccesTokenRequest = new GDXFacebookGraphRequest();
             appAccesTokenRequest.putField("client_id", FacebookConfig.APPLICATION_ID);
             appAccesTokenRequest.putField("grant_type", "client_credentials");
@@ -38,7 +38,7 @@ public class ApplicationService {
 
             final ApplicationAccessTokenCallback accessTokenCallback = new ApplicationAccessTokenCallback();
             gdxFacebook.newGraphRequest(appAccesTokenRequest, accessTokenCallback);
-            Gdx.app.log(TAG, "<< Service finished");
+            Gdx.app.log(TAG, "#updateApplicationAccessToken<< Service finished");
         }
     }
 }

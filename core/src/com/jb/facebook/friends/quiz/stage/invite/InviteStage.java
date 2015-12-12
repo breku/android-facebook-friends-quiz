@@ -10,21 +10,22 @@ import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
+import javax.inject.Inject;
+
 /**
  * Created by brekol on 06.12.15.
  */
 public class InviteStage extends AbstractStage {
 
     private static final String TAG = "InviteStage";
-    private final MyGdxGame myGdxGame;
     private final GDXFacebook gdxFacebook;
     private RefreshButton refreshButton;
     private BackButton backButton;
     private InviteService inviteService;
 
-    public InviteStage(MyGdxGame myGdxGame, GDXFacebook gdxFacebook) {
+    @Inject
+    public InviteStage(GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
-        this.myGdxGame = myGdxGame;
         createButtons();
         initializeServices();
     }
@@ -59,7 +60,7 @@ public class InviteStage extends AbstractStage {
     }
 
     private void returnToMenu() {
-//        myGdxGame.setScreen(new MenuScreen());
+        setTargetScreenType(ScreenType.MENU);
     }
 
     private void initializeServices() {

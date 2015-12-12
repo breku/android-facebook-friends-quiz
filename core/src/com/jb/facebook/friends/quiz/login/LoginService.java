@@ -18,10 +18,10 @@ public class LoginService {
     }
 
     public void loginToFacebook() {
-        Gdx.app.log(TAG, ">> Service called");
+        Gdx.app.log(TAG, "#loginToFacebook>> Service called");
         final FacebookLoginCallback facebookLoginCallback = new FacebookLoginCallback();
         gdxFacebook.loginWithReadPermissions(createPermissions(), facebookLoginCallback);
-        Gdx.app.log(TAG, "<< Service finished");
+        Gdx.app.log(TAG, "#loginToFacebook<< Service finished");
     }
 
     public boolean isUserLoggedToFacebook() {

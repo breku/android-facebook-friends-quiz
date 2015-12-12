@@ -43,7 +43,6 @@ public class MenuStage extends AbstractStage {
 
             if (gdxFacebook.isLoggedIn()) {
                 setTargetScreenType(ScreenType.GAME);
-//                myGdxGame.setScreen(new GameScreen(myGdxGame, gdxFacebook));
             } else {
                 toastWindow.showToast("You have to sign in to your facebook account\nto play.");
             }

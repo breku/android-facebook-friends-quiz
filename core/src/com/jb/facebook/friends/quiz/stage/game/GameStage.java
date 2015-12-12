@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.jb.facebook.friends.quiz.MyGdxGame;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
-import com.jb.facebook.friends.quiz.stage.ScreenManager;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
 import com.jb.facebook.friends.quiz.stage.game.image.ImageService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
-import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 import javax.inject.Inject;
@@ -25,21 +22,19 @@ import java.util.List;
 public class GameStage extends AbstractStage {
 
     private final GDXFacebook gdxFacebook;
+    private final GameService gameService;
+    private final ImageService imageService;
     private RefreshButton refreshButton;
     private BackButton backButton;
-    private GameService gameService;
     private CallbackListener initializeUsersListener = new CallbackListener();
     private BitmapFont font;
+    private List<UserRow> userRows = new ArrayList<>();
 
     @Inject
-    ImageService imageService = new ImageService();
-
-    private List<UserRow> userRows = new ArrayList<UserRow>();
-
-    public GameStage(final GDXFacebook gdxFacebook) {
+    public GameStage(final GDXFacebook gdxFacebook, final GameService gameService, final ImageService imageService) {
         this.gdxFacebook = gdxFacebook;
-        createButtons();
-        initialize();
+        this.gameService = gameService;
+        this.imageService = imageService;
     }
 
     @Override
@@ -76,8 +71,8 @@ public class GameStage extends AbstractStage {
         return false;
     }
 
-    private void initialize() {
-        gameService = new GameService(gdxFacebook);
+    public void initialize() {
+        createButtons();
         gameService.initializeUsers(initializeUsersListener);
         font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" +
                 ".png"), false);
