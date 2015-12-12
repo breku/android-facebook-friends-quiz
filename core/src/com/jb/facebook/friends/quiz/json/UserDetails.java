@@ -16,8 +16,19 @@ public class UserDetails {
     @SerializedName("photos")
     private Photos photos;
 
+    @SerializedName("likes")
+    private Likes likes;
+
     @SerializedName("picture")
     private ProfilePicture profilePicture;
+
+    public Likes getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Likes likes) {
+        this.likes = likes;
+    }
 
     public ProfilePicture getProfilePicture() {
         return profilePicture;

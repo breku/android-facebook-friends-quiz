@@ -74,8 +74,7 @@ public class GameStage extends AbstractStage {
     public void initialize() {
         createButtons();
         gameService.initializeUsers(initializeUsersListener);
-        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" +
-                ".png"), false);
+        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
         font.setColor(Color.BLACK);
     }
 

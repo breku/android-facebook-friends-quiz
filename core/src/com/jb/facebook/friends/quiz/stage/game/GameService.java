@@ -28,7 +28,7 @@ public class GameService {
     public void initializeUsers(CallbackListener initializeUsersListener) {
         Gdx.app.log(TAG, "#initializeUsers<< Service called");
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
-                .setNode("me/friends").putField("fields", "picture,name").useCurrentAccessToken();
+                .setNode("me/friends").putField("fields", "picture,name,likes{photos{link,images},context,link,talking_about_count,likes}").useCurrentAccessToken();
 
         gdxFacebook.newGraphRequest(request, new InitializeUsersCallback(initializeUsersListener));
         Gdx.app.log(TAG, "#initializeUsers<< Service finished");
