@@ -2,7 +2,7 @@ package com.jb.facebook.friends.quiz.stage.game;
 
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.game.model.UserModel;
-import com.jb.facebook.friends.quiz.stage.pregame.GameService;
+import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 
 import javax.inject.Inject;
 

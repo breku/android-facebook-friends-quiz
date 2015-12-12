@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.jb.facebook.friends.quiz.json.UserDetails;
+import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 /**

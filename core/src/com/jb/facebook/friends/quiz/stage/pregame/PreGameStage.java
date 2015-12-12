@@ -8,6 +8,7 @@ import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
+import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
@@ -24,7 +25,6 @@ public class PreGameStage extends AbstractStage {
     private final ImageService imageService;
     private RefreshButton refreshButton;
     private BackButton backButton;
-    private CallbackListener initializeUsersListener = new CallbackListener();
     private BitmapFont font;
     private List<UserRow> userRows = new ArrayList<>();
 
@@ -46,18 +46,6 @@ public class PreGameStage extends AbstractStage {
             refreshButton.setClicked(false);
         }
 
-        if (initializeUsersListener.isCallbackSucceed()) {
-            initializeUsersListener.setCallbackSucceed(false);
-            final List<UserDetails> userDetailsList = gameService.getUserDetailsList();
-            for (int i = 0; i < userDetailsList.size(); i++) {
-
-                userRows.add(new UserRow(gameService, imageService, userDetailsList.get(i), i));
-            }
-            for (UserRow userRow : userRows) {
-                addActor(userRow);
-            }
-        }
-
         if (backButton.isClicked()) {
             backButton.setClicked(false);
             returnToMenu();
@@ -75,7 +63,22 @@ public class PreGameStage extends AbstractStage {
 
     public void initialize() {
         createButtons();
-        gameService.initializeUsers(initializeUsersListener);
+        initializeFont();
+        initializeUsers();
+    }
+
+    private void initializeUsers() {
+        final List<UserDetails> userDetailsList = gameService.getUserDetailsList();
+        for (int i = 0; i < userDetailsList.size(); i++) {
+
+            userRows.add(new UserRow(gameService, imageService, userDetailsList.get(i), i));
+        }
+        for (UserRow userRow : userRows) {
+            addActor(userRow);
+        }
+    }
+
+    private void initializeFont() {
         font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
         font.setColor(Color.BLACK);
     }
