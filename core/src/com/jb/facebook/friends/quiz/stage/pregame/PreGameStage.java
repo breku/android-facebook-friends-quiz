@@ -8,6 +8,7 @@ import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
@@ -26,15 +27,16 @@ public class PreGameStage extends AbstractStage {
 
     private final GameService gameService;
     private final ImageService imageService;
+    private final FontManager fontManager;
     private RefreshButton refreshButton;
     private BackButton backButton;
-    private BitmapFont font;
     private List<UserRow> userRows = new ArrayList<>();
 
     @Inject
-    public PreGameStage(final GameService gameService, final ImageService imageService) {
+    public PreGameStage(final GameService gameService, final ImageService imageService, final FontManager fontManager) {
         this.gameService = gameService;
         this.imageService = imageService;
+        this.fontManager = fontManager;
     }
 
     @Override
@@ -85,7 +87,6 @@ public class PreGameStage extends AbstractStage {
     @Override
     public void initialize() {
         createButtons();
-        initializeFont();
         initializeUsers();
     }
 
@@ -94,16 +95,11 @@ public class PreGameStage extends AbstractStage {
         final List<UserDetails> userDetailsList = gameService.getUserDetailsList();
         for (int i = 0; i < userDetailsList.size(); i++) {
 
-            userRows.add(new UserRow(gameService, imageService, userDetailsList.get(i), i));
+            userRows.add(new UserRow(fontManager, imageService, userDetailsList.get(i), i));
         }
         for (UserRow userRow : userRows) {
             addActor(userRow);
         }
-    }
-
-    private void initializeFont() {
-        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
-        font.setColor(Color.BLACK);
     }
 
     private void returnToMenu() {

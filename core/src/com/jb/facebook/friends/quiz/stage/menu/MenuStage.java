@@ -1,9 +1,11 @@
 package com.jb.facebook.friends.quiz.stage.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.jb.facebook.friends.quiz.login.LoginService;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
 import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.ToastWindow;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import com.jb.facebook.friends.quiz.stage.menu.button.*;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
@@ -16,7 +18,8 @@ public class MenuStage extends AbstractStage {
 
     private static final String TAG = "MainMenuScene";
 
-    private final GDXFacebook gdxFacebook;
+    private final LoginService loginService;
+    private final FontManager fontManager;
 
     private AbstractMenuButton playButton;
     private AbstractMenuButton optionsButton;
@@ -25,8 +28,9 @@ public class MenuStage extends AbstractStage {
     private ToastWindow toastWindow;
 
     @Inject
-    public MenuStage(final GDXFacebook gdxFacebook) {
-        this.gdxFacebook = gdxFacebook;
+    public MenuStage(final LoginService loginService, final FontManager fontManager) {
+        this.loginService = loginService;
+        this.fontManager = fontManager;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class MenuStage extends AbstractStage {
         if (playButton.isClicked()) {
             playButton.setClicked(false);
 
-            if (gdxFacebook.isLoggedIn()) {
+            if (loginService.isUserLoggedToFacebook()) {
                 setTargetScreenType(ScreenType.PRE_GAME);
             } else {
                 toastWindow.showToast("You have to sign in to your facebook account\nto play.");
@@ -80,7 +84,7 @@ public class MenuStage extends AbstractStage {
     }
 
     private void createToastWindow() {
-        toastWindow = new ToastWindow();
+        toastWindow = new ToastWindow(fontManager);
         addActor(toastWindow);
     }
 

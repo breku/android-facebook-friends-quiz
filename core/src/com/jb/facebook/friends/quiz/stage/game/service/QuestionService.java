@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.jb.facebook.friends.quiz.json.MusicData;
 import com.jb.facebook.friends.quiz.json.UserDetails;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import com.jb.facebook.friends.quiz.stage.game.button.Mark;
 import com.jb.facebook.friends.quiz.stage.game.question.AbstractQuestion;
 import com.jb.facebook.friends.quiz.stage.game.question.MusicQuestion;
@@ -20,10 +21,12 @@ public class QuestionService {
     private static final String TAG = "QuestionService";
 
     private final ImageService imageService;
+    private final FontManager fontManager;
 
     @Inject
-    public QuestionService(ImageService imageService) {
+    public QuestionService(ImageService imageService, FontManager  fontManager) {
         this.imageService = imageService;
+        this.fontManager = fontManager;
     }
 
     public List<AbstractQuestion> generateQuestionList(final UserDetails targetUserDetails, final UserDetails fakeUserDetails) {
@@ -50,7 +53,7 @@ public class QuestionService {
         final List<AbstractQuestion> result = new ArrayList<>();
         for (MusicData musicData : musicDataList) {
             final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
-            result.add(new MusicQuestion(textureRegion, musicData.getName(), targetUsername, questionCorrect));
+            result.add(new MusicQuestion(fontManager,textureRegion, musicData.getName(), targetUsername, questionCorrect));
         }
         return result;
     }

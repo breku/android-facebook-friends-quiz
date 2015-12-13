@@ -1,11 +1,10 @@
 package com.jb.facebook.friends.quiz.stage.common;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Timer;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 
 /**
  * Created by brekol on 06.12.15.
@@ -14,11 +13,9 @@ public class ToastWindow extends Actor {
     private final BitmapFont font;
     private String text;
 
-    public ToastWindow() {
-        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" +
-                ".png"), false);
+    public ToastWindow(FontManager fontManager) {
+        font = fontManager.getDefaultFont();
         setVisible(false);
-        font.setColor(Color.BLACK);
     }
 
     @Override

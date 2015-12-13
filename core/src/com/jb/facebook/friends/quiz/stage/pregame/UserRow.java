@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.jb.facebook.friends.quiz.json.UserDetails;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
@@ -22,18 +23,17 @@ public class UserRow extends Actor {
     private final BitmapFont font;
     private final String username;
     private final String userId;
-    private final GameService gameService;
+    private final FontManager fontManager;
     private int index;
     private TextureRegion textureRegion;
     private boolean clicked = false;
 
-    public UserRow(final GameService gameService, ImageService imageService, UserDetails userDetails, int index) {
-        this.gameService = gameService;
+    public UserRow(final FontManager fontManager, ImageService imageService, UserDetails userDetails, int index) {
+        this.fontManager = fontManager;
         this.username = userDetails.getName();
         this.userId = userDetails.getId();
         this.index = index;
-        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
-        font.setColor(Color.BLACK);
+        font = fontManager.getDefaultFont();
         textureRegion = imageService.getImage(userDetails.getProfilePicture().getProfilePictureData().getUrl());
         setBounds(100, getRowY(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 

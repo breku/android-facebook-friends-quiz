@@ -1,13 +1,13 @@
 package com.jb.facebook.friends.quiz.stage.game.question;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
@@ -25,14 +25,13 @@ public class AbstractQuestion extends Actor {
     private int actorX = 100;
     private int actorY = 1200;
 
-    public AbstractQuestion(TextureRegion textureRegion, String questionString, boolean questionCorrect) {
+    public AbstractQuestion(FontManager fontManager, TextureRegion textureRegion, String questionString, boolean questionCorrect) {
         this.textureRegion = textureRegion;
         this.questionString = questionString;
         this.questionCorrect = questionCorrect;
         setBounds(actorX, actorY, textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 
-        font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
-        font.setColor(Color.BLACK);
+        font = fontManager.getDefaultFont();
 
         setDebug(true);
         addListener(new InputListener() {
