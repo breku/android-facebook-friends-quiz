@@ -3,6 +3,8 @@ package com.jb.facebook.friends.quiz.stage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
+import java.util.Map;
+
 /**
  * Created by brekol on 06.12.15.
  */
@@ -53,5 +55,13 @@ public abstract class AbstractScreen implements Screen {
 
     public ScreenType getTargetScreenType() {
         return stage.getTargetScreenType();
+    }
+
+    public Map<String, Object> getAdditionalData() {
+        return stage.getAdditionalData();
+    }
+
+    public void setAdditionalData(Map<String, Object> additionalData) {
+        this.stage.setAdditionalData(additionalData);
     }
 }

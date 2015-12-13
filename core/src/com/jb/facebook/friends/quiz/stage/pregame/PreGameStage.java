@@ -15,6 +15,9 @@ import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.jb.facebook.friends.quiz.configuration.ContextConstants.USER_ID_ADDITIONAL_DATA_KEY;
 
 /**
  * Created by brekol on 06.12.15.
@@ -46,6 +49,15 @@ public class PreGameStage extends AbstractStage {
             refreshButton.setClicked(false);
         }
 
+        for (UserRow userRow : userRows) {
+            if (userRow.isClicked()) {
+                userRow.setClicked(false);
+
+                additionalData.put(USER_ID_ADDITIONAL_DATA_KEY, userRow.getUserId());
+                setTargetScreenType(ScreenType.GAME);
+            }
+        }
+
         if (backButton.isClicked()) {
             backButton.setClicked(false);
             returnToMenu();
@@ -61,11 +73,13 @@ public class PreGameStage extends AbstractStage {
         return false;
     }
 
+    @Override
     public void initialize() {
         createButtons();
         initializeFont();
         initializeUsers();
     }
+
 
     private void initializeUsers() {
         final List<UserDetails> userDetailsList = gameService.getUserDetailsList();

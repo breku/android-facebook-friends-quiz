@@ -11,6 +11,7 @@ import com.jb.facebook.friends.quiz.stage.menu.MenuScreen;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 /**
  * Created by brekol on 06.12.15.

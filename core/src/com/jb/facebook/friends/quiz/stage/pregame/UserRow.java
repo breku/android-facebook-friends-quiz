@@ -49,9 +49,20 @@ public class UserRow extends Actor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 ((UserRow) event.getTarget()).clicked = true;
                 Gdx.app.log(TAG, "UserRow Clicked");
-                gameService.getUserModel(userId);
             }
         });
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
     }
 
     @Override
