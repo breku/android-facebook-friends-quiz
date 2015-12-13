@@ -10,7 +10,7 @@ import de.tomgrill.gdxfacebook.core.GDXFacebook;
 public class UserDetailsCallable extends AbstractFacebookCallable<UserDetails> {
 
     public UserDetailsCallable(final GDXFacebook gdxFacebook, final String userId) {
-        super(gdxFacebook, userId, "name,music{picture.type(large),name}");
+        super(gdxFacebook, userId, "name,music{picture.height(600).width(600){height,width,is_silhouette,url},name}");
     }
 
     @Override

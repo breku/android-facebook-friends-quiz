@@ -67,7 +67,7 @@ public class GameStage extends AbstractStage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (backButton.isClicked()) {
+         if (backButton.isClicked()) {
             backButton.setClicked(false);
             returnToMenu();
         }

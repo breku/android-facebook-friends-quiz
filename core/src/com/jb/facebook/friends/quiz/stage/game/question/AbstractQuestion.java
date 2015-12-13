@@ -16,21 +16,24 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class AbstractQuestion extends Actor {
 
     private static final String TAG = "Question";
+    private static final int TARGET_HEIGHT = 800;
+    private static final int TARGET_WIDTH = 800;
     private final TextureRegion textureRegion;
     private final String questionString;
     private final boolean questionCorrect;
     private final BitmapFont font;
     private boolean clicked = false;
 
-    private int actorX = 100;
-    private int actorY = 1200;
-
     public AbstractQuestion(FontManager fontManager, TextureRegion textureRegion, String questionString, boolean questionCorrect) {
         this.textureRegion = textureRegion;
         this.questionString = questionString;
         this.questionCorrect = questionCorrect;
-        setBounds(actorX, actorY, textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
+        setX(150);
+        setY(800);
 
+        setBounds(getX(), getY(), textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
+        setScaleY((float) TARGET_HEIGHT / (float) textureRegion.getRegionHeight());
+        setScaleX((float) TARGET_WIDTH / (float) textureRegion.getRegionWidth());
         font = fontManager.getDefaultFont();
 
         setDebug(true);
@@ -44,7 +47,7 @@ public class AbstractQuestion extends Actor {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 ((AbstractQuestion) event.getTarget()).clicked = true;
-                Gdx.app.log(TAG, "Questions Clicked");
+                Gdx.app.log(TAG, "Question Clicked");
             }
         });
     }
@@ -64,11 +67,10 @@ public class AbstractQuestion extends Actor {
     @Override
     public void draw(Batch spriteBatch, float parentAlpha) {
 
-        font.draw(spriteBatch, questionString, actorX, actorY);
+        font.draw(spriteBatch, questionString, getX() - 100, getY() - 50);
 
-        if (textureRegion != null) {
-            spriteBatch.draw(textureRegion, actorX, actorY);
-        }
+        spriteBatch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(),
+                getRotation());
     }
 
     @Override

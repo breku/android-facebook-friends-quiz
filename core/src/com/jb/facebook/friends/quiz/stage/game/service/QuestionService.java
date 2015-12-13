@@ -24,7 +24,7 @@ public class QuestionService {
     private final FontManager fontManager;
 
     @Inject
-    public QuestionService(ImageService imageService, FontManager  fontManager) {
+    public QuestionService(ImageService imageService, FontManager fontManager) {
         this.imageService = imageService;
         this.fontManager = fontManager;
     }
@@ -52,8 +52,10 @@ public class QuestionService {
     private List<AbstractQuestion> getMusicQuestions(List<MusicData> musicDataList, String targetUsername, boolean questionCorrect) {
         final List<AbstractQuestion> result = new ArrayList<>();
         for (MusicData musicData : musicDataList) {
-            final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
-            result.add(new MusicQuestion(fontManager,textureRegion, musicData.getName(), targetUsername, questionCorrect));
+            if (musicData.getProfilePicture().getProfilePictureData().getHeight() > 600) {
+                final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
+                result.add(new MusicQuestion(fontManager, textureRegion, musicData.getName(), targetUsername, questionCorrect));
+            }
         }
         return result;
     }
