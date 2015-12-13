@@ -10,7 +10,7 @@ import java.util.List;
 public class Music {
 
     @SerializedName("data")
-    List<MusicData> musicDataList;
+    private List<MusicData> musicDataList;
 
     public List<MusicData> getMusicDataList() {
         return musicDataList;

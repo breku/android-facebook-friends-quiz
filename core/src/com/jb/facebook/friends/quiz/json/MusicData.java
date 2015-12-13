@@ -18,6 +18,17 @@ public class MusicData {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("picture")
+    private ProfilePicture profilePicture;
+
+    public ProfilePicture getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(ProfilePicture profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     public Date getCreatedTime() {
         return createdTime;
     }

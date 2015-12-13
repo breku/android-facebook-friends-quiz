@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class GameService {
 
     private static final String TAG = "GameService";
+    private static final String MY_FRIENDS_CONSTANT_KEY = "myFriendsConstantKey";
     private final GDXFacebook gdxFacebook;
     private Cache<String, UserModel> userModelCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
             .MINUTES).build();
@@ -32,7 +33,7 @@ public class GameService {
 
     public List<UserDetails> getUserDetailsList() {
         try {
-            return friendListCache.get("1", new GetFriendsCallable(gdxFacebook));
+            return friendListCache.get(MY_FRIENDS_CONSTANT_KEY, new GetFriendsCallable(gdxFacebook));
         } catch (ExecutionException e) {
             Gdx.app.log(TAG, "Error during getting user friend list", e);
         }
