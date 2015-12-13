@@ -65,8 +65,7 @@ public class AbstractQuestion extends Actor {
     @Override
     public void draw(Batch spriteBatch, float parentAlpha) {
 
-//        font.draw(spriteBatch, questionString, actorX, actorY);
-                font.draw(spriteBatch, "ĄŻŁÓŚ", actorX, actorY);
+        font.draw(spriteBatch, questionString, actorX, actorY);
 
         if (textureRegion != null) {
             spriteBatch.draw(textureRegion, actorX, actorY);
@@ -82,6 +81,7 @@ public class AbstractQuestion extends Actor {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("questionCorrect", questionCorrect)
+                .append("questionString", questionString)
                 .toString();
     }
 }

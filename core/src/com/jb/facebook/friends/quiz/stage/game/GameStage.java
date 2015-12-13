@@ -50,8 +50,8 @@ public class GameStage extends AbstractStage {
         final List<AbstractQuestion> questionList = questionService.generateQuestionList(userDetails, myUserDetails);
         questions = new ArrayDeque<>(questionList);
 
-        currentQuestion = questions.remove();
-        addActor(currentQuestion);
+        initializeNextQuestion();
+
 //        AbstractQuestion question = new AbstractQuestion(imageService,userDetails);
 //        addActor(question);
 
@@ -69,6 +69,21 @@ public class GameStage extends AbstractStage {
             backButton.setClicked(false);
             returnToMenu();
         }
+        if(correctButton.isClicked()){
+            correctButton.setClicked(false);
+            initializeNextQuestion();
+        }
+    }
+
+    private void initializeNextQuestion() {
+        if(currentQuestion !=null){
+            currentQuestion.remove();
+        }
+        if(!questions.isEmpty()){
+            currentQuestion = questions.remove();
+            addActor(currentQuestion);
+        }
+
     }
 
     @Override
