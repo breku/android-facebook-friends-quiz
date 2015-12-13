@@ -25,6 +25,17 @@ public class UserDetails {
     @SerializedName("music")
     private Music music;
 
+    @SerializedName("movies")
+    private Movies movies;
+
+    public Movies getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Movies movies) {
+        this.movies = movies;
+    }
+
     public Music getMusic() {
         return music;
     }

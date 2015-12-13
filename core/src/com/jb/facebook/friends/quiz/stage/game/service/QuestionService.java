@@ -2,12 +2,12 @@ package com.jb.facebook.friends.quiz.stage.game.service;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.jb.facebook.friends.quiz.json.MusicData;
-import com.jb.facebook.friends.quiz.json.UserDetails;
+import com.jb.facebook.friends.quiz.json.*;
 import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 import com.jb.facebook.friends.quiz.stage.game.button.Mark;
 import com.jb.facebook.friends.quiz.stage.game.question.AbstractQuestion;
-import com.jb.facebook.friends.quiz.stage.game.question.MusicQuestion;
+import com.jb.facebook.friends.quiz.stage.game.question.LikeQuestion;
+import com.jb.facebook.friends.quiz.stage.game.question.MovieQuestion;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import java.util.*;
 public class QuestionService {
 
     private static final String TAG = "QuestionService";
-
+    private static final int MINIMUM_HEIGHT = 400;
     private final ImageService imageService;
     private final FontManager fontManager;
 
@@ -33,8 +33,13 @@ public class QuestionService {
         Gdx.app.log(TAG, ">> #generateQuestionList called");
         List<AbstractQuestion> result = new ArrayList<>();
         final String targetUsername = targetUserDetails.getName();
+
         result.addAll(getMusicQuestions(targetUserDetails.getMusic().getMusicDataList(), targetUsername, true));
         result.addAll(getMusicQuestions(fakeUserDetails.getMusic().getMusicDataList(), targetUsername, false));
+
+        result.addAll(getMovieQuestions(targetUserDetails.getMovies().getMoviesDataList(), targetUsername, true));
+        result.addAll(getMovieQuestions(fakeUserDetails.getMovies().getMoviesDataList(), targetUsername, false));
+
         Collections.shuffle(result);
         result = result.subList(0, result.size() > 10 ? 10 : result.size());
         Gdx.app.log(TAG, "<< #generateQuestionList finished with result=" + result);
@@ -49,14 +54,29 @@ public class QuestionService {
         return result;
     }
 
-    private List<AbstractQuestion> getMusicQuestions(List<MusicData> musicDataList, String targetUsername, boolean questionCorrect) {
+    private List<AbstractQuestion> getMovieQuestions(List<MoviesData> pictureDataList, String targetUsername, boolean questionCorrect) {
         final List<AbstractQuestion> result = new ArrayList<>();
-        for (MusicData musicData : musicDataList) {
-            if (musicData.getProfilePicture().getProfilePictureData().getHeight() > 600) {
-                final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
-                result.add(new MusicQuestion(fontManager, textureRegion, musicData.getName(), targetUsername, questionCorrect));
+        for (AbstractPictureData pictureData : pictureDataList) {
+            if (hasCorrectPicture(pictureData.getProfilePicture().getProfilePictureData())) {
+                final TextureRegion textureRegion = imageService.getImage(pictureData.getProfilePicture().getProfilePictureData().getUrl());
+                result.add(new MovieQuestion(fontManager, textureRegion, pictureData.getName(), targetUsername, questionCorrect));
             }
         }
         return result;
+    }
+
+    private List<AbstractQuestion> getMusicQuestions(List<MusicData> musicDataList, String targetUsername, boolean questionCorrect) {
+        final List<AbstractQuestion> result = new ArrayList<>();
+        for (MusicData musicData : musicDataList) {
+            if (hasCorrectPicture(musicData.getProfilePicture().getProfilePictureData())) {
+                final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
+                result.add(new LikeQuestion(fontManager, textureRegion, musicData.getName(), targetUsername, questionCorrect));
+            }
+        }
+        return result;
+    }
+
+    private boolean hasCorrectPicture(ProfilePictureData profilePictureData) {
+        return profilePictureData.getHeight() > MINIMUM_HEIGHT && !profilePictureData.isBlank();
     }
 }

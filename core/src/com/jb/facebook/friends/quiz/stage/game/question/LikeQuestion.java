@@ -7,11 +7,11 @@ import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
 /**
  * Created by brekol on 13.12.15.
  */
-public class MusicQuestion extends AbstractQuestion {
+public class LikeQuestion extends AbstractQuestion {
 
     private static final String QUESTION_FORMAT = "Does %s like %s?";
 
-    public MusicQuestion(final FontManager fontManager, final TextureRegion textureRegion, final String artistName, String targetUsername, boolean questionCorrect) {
+    public LikeQuestion(final FontManager fontManager, final TextureRegion textureRegion, final String artistName, String targetUsername, boolean questionCorrect) {
         super(fontManager,textureRegion, String.format(QUESTION_FORMAT, targetUsername, artistName), questionCorrect);
     }
 
