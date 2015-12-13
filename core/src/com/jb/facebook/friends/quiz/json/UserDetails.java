@@ -23,25 +23,36 @@ public class UserDetails {
     private ProfilePicture profilePicture;
 
     @SerializedName("music")
-    private Music music;
+    private PictureObject music;
 
     @SerializedName("movies")
-    private Movies movies;
+    private PictureObject movies;
 
-    public Movies getMovies() {
-        return movies;
+    @SerializedName("books")
+    private PictureObject books;
+
+    public PictureObject getBooks() {
+        return books;
     }
 
-    public void setMovies(Movies movies) {
-        this.movies = movies;
+    public void setBooks(PictureObject books) {
+        this.books = books;
     }
 
-    public Music getMusic() {
+    public PictureObject getMusic() {
         return music;
     }
 
-    public void setMusic(Music music) {
+    public void setMusic(PictureObject music) {
         this.music = music;
+    }
+
+    public PictureObject getMovies() {
+        return movies;
+    }
+
+    public void setMovies(PictureObject movies) {
+        this.movies = movies;
     }
 
     public Likes getLikes() {

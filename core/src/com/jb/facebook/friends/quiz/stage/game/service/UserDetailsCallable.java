@@ -12,11 +12,14 @@ public class UserDetailsCallable extends AbstractFacebookCallable<UserDetails> {
 
     private static final String NODE_NAME = "name";
     private static final String NODE_SEPARATOR = ",";
-    private static final String NODE_MUSIC = "music{picture.height(600).width(600){height,width,is_silhouette,url},name}";
-    private static final String NODE_VIDEO = "movies{picture.height(600).width(600){height,width,is_silhouette,url},name}";
+
+    private static final String COMMON_PICTURE_PROPERTIES = "{picture.height(600).width(600){height,width,is_silhouette,url},name}";
+    private static final String NODE_MUSIC = "music" + COMMON_PICTURE_PROPERTIES;
+    private static final String NODE_VIDEO = "movies" + COMMON_PICTURE_PROPERTIES;
+    private static final String NODE_BOOKS = "books" + COMMON_PICTURE_PROPERTIES;
 
     public UserDetailsCallable(final GDXFacebook gdxFacebook, final String userId) {
-        super(gdxFacebook, userId, Joiner.on(NODE_SEPARATOR).join(NODE_NAME, NODE_MUSIC, NODE_VIDEO));
+        super(gdxFacebook, userId, Joiner.on(NODE_SEPARATOR).join(NODE_NAME, NODE_MUSIC, NODE_VIDEO, NODE_BOOKS));
     }
 
     @Override

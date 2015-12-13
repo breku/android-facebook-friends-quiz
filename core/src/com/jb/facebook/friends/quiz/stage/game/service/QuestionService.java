@@ -2,12 +2,13 @@ package com.jb.facebook.friends.quiz.stage.game.service;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.jb.facebook.friends.quiz.json.*;
-import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
+import com.jb.facebook.friends.quiz.json.PictureData;
+import com.jb.facebook.friends.quiz.json.PictureObject;
+import com.jb.facebook.friends.quiz.json.ProfilePictureData;
+import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.game.button.Mark;
 import com.jb.facebook.friends.quiz.stage.game.question.AbstractQuestion;
-import com.jb.facebook.friends.quiz.stage.game.question.LikeQuestion;
-import com.jb.facebook.friends.quiz.stage.game.question.MovieQuestion;
+import com.jb.facebook.friends.quiz.stage.game.question.QuestionType;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 import javax.inject.Inject;
@@ -19,14 +20,14 @@ import java.util.*;
 public class QuestionService {
 
     private static final String TAG = "QuestionService";
-    private static final int MINIMUM_HEIGHT = 400;
+    private static final int MINIMUM_HEIGHT = 300;
     private final ImageService imageService;
-    private final FontManager fontManager;
+    private final QuestionFactory questionFactory;
 
     @Inject
-    public QuestionService(ImageService imageService, FontManager fontManager) {
+    public QuestionService(ImageService imageService, QuestionFactory questionFactory) {
         this.imageService = imageService;
-        this.fontManager = fontManager;
+        this.questionFactory = questionFactory;
     }
 
     public List<AbstractQuestion> generateQuestionList(final UserDetails targetUserDetails, final UserDetails fakeUserDetails) {
@@ -34,11 +35,12 @@ public class QuestionService {
         List<AbstractQuestion> result = new ArrayList<>();
         final String targetUsername = targetUserDetails.getName();
 
-        result.addAll(getMusicQuestions(targetUserDetails.getMusic().getMusicDataList(), targetUsername, true));
-        result.addAll(getMusicQuestions(fakeUserDetails.getMusic().getMusicDataList(), targetUsername, false));
-
-        result.addAll(getMovieQuestions(targetUserDetails.getMovies().getMoviesDataList(), targetUsername, true));
-        result.addAll(getMovieQuestions(fakeUserDetails.getMovies().getMoviesDataList(), targetUsername, false));
+        result.addAll(getQuestions(targetUserDetails.getMusic(), targetUsername, true, QuestionType.MUSIC));
+        result.addAll(getQuestions(fakeUserDetails.getMusic(), targetUsername, false, QuestionType.MUSIC));
+        result.addAll(getQuestions(targetUserDetails.getMovies(), targetUsername, true, QuestionType.MOVIE));
+        result.addAll(getQuestions(fakeUserDetails.getMovies(), targetUsername, false, QuestionType.MOVIE));
+        result.addAll(getQuestions(targetUserDetails.getBooks(), targetUsername, true, QuestionType.BOOK));
+        result.addAll(getQuestions(fakeUserDetails.getBooks(), targetUsername, false, QuestionType.BOOK));
 
         Collections.shuffle(result);
         result = result.subList(0, result.size() > 10 ? 10 : result.size());
@@ -54,23 +56,18 @@ public class QuestionService {
         return result;
     }
 
-    private List<AbstractQuestion> getMovieQuestions(List<MoviesData> pictureDataList, String targetUsername, boolean questionCorrect) {
+    private List<AbstractQuestion> getQuestions(PictureObject pictureObject, String targetUsername, boolean questionCorrect,
+                                                QuestionType questionType) {
         final List<AbstractQuestion> result = new ArrayList<>();
-        for (AbstractPictureData pictureData : pictureDataList) {
-            if (hasCorrectPicture(pictureData.getProfilePicture().getProfilePictureData())) {
-                final TextureRegion textureRegion = imageService.getImage(pictureData.getProfilePicture().getProfilePictureData().getUrl());
-                result.add(new MovieQuestion(fontManager, textureRegion, pictureData.getName(), targetUsername, questionCorrect));
-            }
-        }
-        return result;
-    }
-
-    private List<AbstractQuestion> getMusicQuestions(List<MusicData> musicDataList, String targetUsername, boolean questionCorrect) {
-        final List<AbstractQuestion> result = new ArrayList<>();
-        for (MusicData musicData : musicDataList) {
-            if (hasCorrectPicture(musicData.getProfilePicture().getProfilePictureData())) {
-                final TextureRegion textureRegion = imageService.getImage(musicData.getProfilePicture().getProfilePictureData().getUrl());
-                result.add(new LikeQuestion(fontManager, textureRegion, musicData.getName(), targetUsername, questionCorrect));
+        if (pictureObject != null && pictureObject.getPictureDataList() != null) {
+            for (PictureData pictureData : pictureObject.getPictureDataList()) {
+                if (hasCorrectPicture(pictureData.getProfilePicture().getProfilePictureData())) {
+                    final TextureRegion textureRegion = imageService.getImage(pictureData.getProfilePicture().getProfilePictureData()
+                            .getUrl());
+                    final AbstractQuestion question = questionFactory.createQuestion(targetUsername, questionCorrect, pictureData,
+                            textureRegion, questionType);
+                    result.add(question);
+                }
             }
         }
         return result;

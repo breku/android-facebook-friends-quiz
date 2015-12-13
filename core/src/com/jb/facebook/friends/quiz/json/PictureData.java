@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by brekol on 13.12.15.
  */
-public abstract class AbstractPictureData {
+public class PictureData {
 
     @SerializedName("created_time")
     private Date createdTime;
