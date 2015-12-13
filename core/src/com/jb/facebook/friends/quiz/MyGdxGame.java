@@ -35,7 +35,7 @@ public class MyGdxGame extends Game {
         setScreen(currentScreen);
 
         loginService.loginToFacebook();
-        applicationService.updateApplicationAccessToken();
+//        applicationService.updateApplicationAccessToken();
     }
 
     public void setScreen(final AbstractScreen screen) {

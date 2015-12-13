@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.jb.facebook.friends.quiz.json.UserDetails;
-import com.jb.facebook.friends.quiz.stage.game.model.UserModel;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
 
 import javax.inject.Inject;
@@ -21,7 +20,7 @@ public class GameService {
     private static final String TAG = "GameService";
     private static final String MY_FRIENDS_CONSTANT_KEY = "myFriendsConstantKey";
     private final GDXFacebook gdxFacebook;
-    private Cache<String, UserModel> userModelCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
+    private Cache<String, UserDetails> userDetailsCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
             .MINUTES).build();
     private Cache<String, List<UserDetails>> friendListCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
             .MINUTES).build();
@@ -40,9 +39,9 @@ public class GameService {
         return Collections.emptyList();
     }
 
-    public UserModel getUserModel(String userId) {
+    public UserDetails getUserDetails(String userId) {
         try {
-            return userModelCache.get(userId, new UserModelCallable(gdxFacebook, userId));
+            return userDetailsCache.get(userId, new UserDetailsCallable(gdxFacebook, userId));
         } catch (ExecutionException e) {
             Gdx.app.log(TAG, "Error during getting user model", e);
         }
