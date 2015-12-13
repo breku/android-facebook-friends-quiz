@@ -32,12 +32,12 @@ public abstract class AbstractFacebookCallable<T> implements Callable<T> {
         Gdx.app.log(this.getClass().getSimpleName(), "#initializeResult>> Service called");
 
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
-                .setNode(requestGraphNode).putField("fields", requestGraphFields).useCurrentAccessToken();
+                .setNode(requestGraphNode).putField("fields", requestGraphFields).putField("limit","100").useCurrentAccessToken();
 
         gdxFacebook.newGraphRequest(request, new AbstractFacebookCallback() {
             @Override
             public void onSuccess(GDXFacebookGraphResult result) {
-                Gdx.app.log(this.getClass().getSimpleName(), "#initializeResult result=" + result.getResultAsJson());
+                Gdx.app.log(AbstractFacebookCallable.this.getClass().getSimpleName(), "#initializeResult result=" + result.getResultAsJson());
                 jsonResult = result.getResultAsJson();
                 countDownLatch.countDown();
             }

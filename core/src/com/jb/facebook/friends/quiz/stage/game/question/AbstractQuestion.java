@@ -1,4 +1,4 @@
-package com.jb.facebook.friends.quiz.stage.game;
+package com.jb.facebook.friends.quiz.stage.game.question;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -8,29 +8,27 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.jb.facebook.friends.quiz.json.UserDetails;
-import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Created by brekol on 13.12.15.
  */
-public class Question extends Actor {
+public class AbstractQuestion extends Actor {
 
     private static final String TAG = "Question";
-    private final ImageService imageService;
-    private final UserDetails userDetails;
     private final TextureRegion textureRegion;
+    private final String questionString;
+    private final boolean questionCorrect;
     private final BitmapFont font;
     private boolean clicked = false;
 
     private int actorX = 100;
-    private int actorY = 500;
+    private int actorY = 1500;
 
-    public Question(ImageService imageService, UserDetails userDetails) {
-        this.imageService = imageService;
-        this.userDetails = userDetails;
-        textureRegion = imageService.getImage(userDetails.getMusic().getMusicDataList().get(0).getProfilePicture().getProfilePictureData
-                ().getUrl());
+    public AbstractQuestion(TextureRegion textureRegion, String questionString, boolean questionCorrect) {
+        this.textureRegion = textureRegion;
+        this.questionString = questionString;
+        this.questionCorrect = questionCorrect;
         setBounds(actorX, actorY, textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 
         font = new BitmapFont(Gdx.files.internal("fonts/comicSans44.fnt"), Gdx.files.internal("fonts/comicSans44" + ".png"), false);
@@ -46,10 +44,14 @@ public class Question extends Actor {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                ((Question) event.getTarget()).clicked = true;
-                Gdx.app.log(TAG, "UserRow Clicked");
+                ((AbstractQuestion) event.getTarget()).clicked = true;
+                Gdx.app.log(TAG, "Questions Clicked");
             }
         });
+    }
+
+    public boolean isQuestionCorrect() {
+        return questionCorrect;
     }
 
     public boolean isClicked() {
@@ -63,7 +65,8 @@ public class Question extends Actor {
     @Override
     public void draw(Batch spriteBatch, float parentAlpha) {
 
-        font.draw(spriteBatch, "asdf", actorX, actorY);
+//        font.draw(spriteBatch, questionString, actorX, actorY);
+                font.draw(spriteBatch, "ĄŻŁÓŚ", actorX, actorY);
 
         if (textureRegion != null) {
             spriteBatch.draw(textureRegion, actorX, actorY);
@@ -73,5 +76,12 @@ public class Question extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("questionCorrect", questionCorrect)
+                .toString();
     }
 }

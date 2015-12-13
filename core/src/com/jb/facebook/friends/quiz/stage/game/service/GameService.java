@@ -19,11 +19,11 @@ public class GameService {
 
     private static final String TAG = "GameService";
     private static final String MY_FRIENDS_CONSTANT_KEY = "myFriendsConstantKey";
+    private static final CacheBuilder cacheBuilder = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
+            .MINUTES);
     private final GDXFacebook gdxFacebook;
-    private Cache<String, UserDetails> userDetailsCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
-            .MINUTES).build();
-    private Cache<String, List<UserDetails>> friendListCache = CacheBuilder.newBuilder().maximumSize(200).expireAfterWrite(100, TimeUnit
-            .MINUTES).build();
+    private Cache<String, UserDetails> userDetailsCache = cacheBuilder.build();
+    private Cache<String, List<UserDetails>> friendListCache = cacheBuilder.build();
 
     @Inject
     public GameService(GDXFacebook gdxFacebook) {
@@ -46,5 +46,9 @@ public class GameService {
             Gdx.app.log(TAG, "Error during getting user model", e);
         }
         return null;
+    }
+
+    public UserDetails getMyUserDetails() {
+        return getUserDetails("me");
     }
 }
