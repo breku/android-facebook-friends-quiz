@@ -23,7 +23,7 @@ public class AbstractQuestion extends Actor {
     private boolean clicked = false;
 
     private int actorX = 100;
-    private int actorY = 1500;
+    private int actorY = 1200;
 
     public AbstractQuestion(TextureRegion textureRegion, String questionString, boolean questionCorrect) {
         this.textureRegion = textureRegion;

@@ -9,6 +9,6 @@ import com.jb.facebook.friends.quiz.stage.common.AbstractButton;
 public class CorrectButton extends AbstractButton {
 
     public CorrectButton() {
-        super(new Texture("game/correct.png"), 500, 100, 0.5f, 0.6f);
+        super(new Texture("game/correctGreen.png"), 500, 100, 0.5f, 0.6f);
     }
 }

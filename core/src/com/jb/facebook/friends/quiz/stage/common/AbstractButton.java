@@ -57,7 +57,7 @@ public class AbstractButton extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        batch.draw(textureRegion, getX(), getY(), getWidth() / 2, getHeight() / 2, getWidth(), getHeight(), getScaleX
+        batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX
                         (), getScaleY(),
                 getRotation());
     }

@@ -51,6 +51,7 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {
         stage.setTargetScreenType(ScreenType.NONE);
+        stage.disposeStage();
     }
 
     public ScreenType getTargetScreenType() {

@@ -36,6 +36,8 @@ public abstract class AbstractStage extends Stage {
         this.targetScreenType = targetScreenType;
     }
 
+    public abstract void disposeStage();
+
     public void initialize() {
         // intentionally left blank
     }

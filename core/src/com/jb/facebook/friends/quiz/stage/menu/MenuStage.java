@@ -27,6 +27,10 @@ public class MenuStage extends AbstractStage {
     @Inject
     public MenuStage(final GDXFacebook gdxFacebook) {
         this.gdxFacebook = gdxFacebook;
+    }
+
+    @Override
+    public void initialize() {
         createButtons();
         createToastWindow();
     }
@@ -65,6 +69,14 @@ public class MenuStage extends AbstractStage {
     public boolean keyDown(int keycode) {
         Gdx.app.exit();
         return true;
+    }
+
+    @Override
+    public void disposeStage() {
+        playButton.remove();
+        inviteButton.remove();
+        exitButton.remove();
+        optionsButton.remove();
     }
 
     private void createToastWindow() {

@@ -74,6 +74,15 @@ public class PreGameStage extends AbstractStage {
     }
 
     @Override
+    public void disposeStage() {
+        backButton.remove();
+        refreshButton.remove();
+        for (UserRow userRow : userRows) {
+            userRow.remove();
+        }
+    }
+
+    @Override
     public void initialize() {
         createButtons();
         initializeFont();

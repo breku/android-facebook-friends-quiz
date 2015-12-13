@@ -8,15 +8,14 @@ import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
 import com.jb.facebook.friends.quiz.stage.game.button.CorrectButton;
 import com.jb.facebook.friends.quiz.stage.game.button.IncorrectButton;
+import com.jb.facebook.friends.quiz.stage.game.button.Mark;
 import com.jb.facebook.friends.quiz.stage.game.question.AbstractQuestion;
 import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.game.service.QuestionService;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 import javax.inject.Inject;
-import java.util.ArrayDeque;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by brekol on 12.12.15.
@@ -32,6 +31,7 @@ public class GameStage extends AbstractStage {
     private BackButton backButton;
     private CorrectButton correctButton;
     private IncorrectButton incorrectButton;
+    private Map<String, Mark> marks = new HashMap<>();
 
     @Inject
     public GameStage(GameService gameService, ImageService imageService, QuestionService questionService) {
@@ -41,20 +41,22 @@ public class GameStage extends AbstractStage {
     }
 
     @Override
+    public void disposeStage() {
+        backButton.remove();
+        correctButton.remove();
+        incorrectButton.remove();
+        for (AbstractQuestion question : questions) {
+            question.remove();
+        }
+        for (Map.Entry<String, Mark> entry : marks.entrySet()) {
+            entry.getValue().remove();
+        }
+    }
+
+    @Override
     public void initialize() {
         createButtons();
-        final String userId = (String) additionalData.get(ContextConstants.USER_ID_ADDITIONAL_DATA_KEY);
-        userDetails = gameService.getUserDetails(userId);
-        final UserDetails myUserDetails = gameService.getMyUserDetails();
-
-        final List<AbstractQuestion> questionList = questionService.generateQuestionList(userDetails, myUserDetails);
-        questions = new ArrayDeque<>(questionList);
-
-        initializeNextQuestion();
-
-//        AbstractQuestion question = new AbstractQuestion(imageService,userDetails);
-//        addActor(question);
-
+        initializeQuestions();
     }
 
     @Override
@@ -69,21 +71,25 @@ public class GameStage extends AbstractStage {
             backButton.setClicked(false);
             returnToMenu();
         }
-        if(correctButton.isClicked()){
+        if (correctButton.isClicked()) {
             correctButton.setClicked(false);
+            final Mark mark = marks.get(currentQuestion.toString());
+            mark.setQuestionAnswered(true);
+            if (currentQuestion.isQuestionCorrect()) {
+                mark.setQuestionCorrect(true);
+            }
             initializeNextQuestion();
         }
-    }
 
-    private void initializeNextQuestion() {
-        if(currentQuestion !=null){
-            currentQuestion.remove();
+        if (incorrectButton.isClicked()) {
+            incorrectButton.setClicked(false);
+            final Mark mark = marks.get(currentQuestion.toString());
+            mark.setQuestionAnswered(true);
+            if (!currentQuestion.isQuestionCorrect()) {
+                mark.setQuestionCorrect(true);
+            }
+            initializeNextQuestion();
         }
-        if(!questions.isEmpty()){
-            currentQuestion = questions.remove();
-            addActor(currentQuestion);
-        }
-
     }
 
     @Override
@@ -93,6 +99,30 @@ public class GameStage extends AbstractStage {
             return true;
         }
         return false;
+    }
+
+    private void initializeQuestions() {
+        final String userId = (String) additionalData.get(ContextConstants.USER_ID_ADDITIONAL_DATA_KEY);
+        userDetails = gameService.getUserDetails(userId);
+        final UserDetails myUserDetails = gameService.getMyUserDetails();
+        final List<AbstractQuestion> questionList = questionService.generateQuestionList(userDetails, myUserDetails);
+        questions = new ArrayDeque<>(questionList);
+
+        marks = questionService.createMarks(questionList);
+        for (Map.Entry<String, Mark> entry : marks.entrySet()) {
+            addActor(entry.getValue());
+        }
+        initializeNextQuestion();
+    }
+
+    private void initializeNextQuestion() {
+        if (currentQuestion != null) {
+            currentQuestion.remove();
+        }
+        if (!questions.isEmpty()) {
+            currentQuestion = questions.remove();
+            addActor(currentQuestion);
+        }
     }
 
     private void returnToMenu() {

@@ -60,6 +60,11 @@ public class InviteStage extends AbstractStage {
         return false;
     }
 
+    @Override
+    public void disposeStage() {
+
+    }
+
     private void returnToMenu() {
         setTargetScreenType(ScreenType.MENU);
     }
