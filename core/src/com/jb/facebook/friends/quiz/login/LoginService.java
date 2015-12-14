@@ -29,7 +29,7 @@ public class LoginService {
     public boolean isUserLoggedToFacebook() {
         Gdx.app.log(TAG, ">> Service called");
         boolean result = gdxFacebook.isLoggedIn();
-        Gdx.app.log(TAG, "<< Service finished with result=" + result);
+        Gdx.app.log(TAG, "<< Service finished with asynchronousResult=" + result);
         return result;
     }
 

@@ -20,7 +20,7 @@ import java.util.*;
 public class QuestionService {
 
     private static final String TAG = "QuestionService";
-    private static final int MINIMUM_HEIGHT = 300;
+    private static final int MINIMUM_HEIGHT = 250;
     private final ImageService imageService;
     private final QuestionFactory questionFactory;
 
@@ -44,7 +44,7 @@ public class QuestionService {
 
         Collections.shuffle(result);
         result = result.subList(0, result.size() > 10 ? 10 : result.size());
-        Gdx.app.log(TAG, "<< #generateQuestionList finished with result=" + result);
+        Gdx.app.log(TAG, "<< #generateQuestionList finished with asynchronousResult=" + result);
         return result;
     }
 

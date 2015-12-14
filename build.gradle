@@ -80,7 +80,10 @@ project(":core") {
         compile "org.apache.commons:commons-lang3:3.4"
         compile "com.google.guava:guava:18.0"
         compile "com.squareup.dagger:dagger:1.2.2"
-        compile "com.squareup.dagger:dagger-compiler:1.2.2"    }
+        compile "com.squareup.dagger:dagger-compiler:1.2.2"
+        compile "org.apache.commons:commons-collections4:4.1"
+
+    }
 }
 
 tasks.eclipse.doLast {
