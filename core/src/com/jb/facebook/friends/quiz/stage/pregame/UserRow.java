@@ -1,7 +1,6 @@
 package com.jb.facebook.friends.quiz.stage.pregame;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
-import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 
 /**

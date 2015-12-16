@@ -16,10 +16,5 @@ public abstract class GetFriendsRequest extends AsyncAbstractFacebookRequest<Use
         super(UsersJson.class,gdxFacebook, "me/friends", "picture.type(large),name");
         initializeResultAsync();
     }
-//
-//    public List<UserDetails> call() throws Exception {
-//        initializeResult();
-//        final UsersJson usersJson = new Gson().fromJson(jsonResult, UsersJson.class);
-//        return usersJson.getUserDetailsList();
-//    }
+
 }

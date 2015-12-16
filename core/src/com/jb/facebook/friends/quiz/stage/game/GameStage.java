@@ -1,6 +1,8 @@
 package com.jb.facebook.friends.quiz.stage.game;
 
 import com.badlogic.gdx.Input;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.jb.facebook.friends.quiz.configuration.ContextConstants;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
@@ -11,7 +13,6 @@ import com.jb.facebook.friends.quiz.stage.game.button.CorrectButton;
 import com.jb.facebook.friends.quiz.stage.game.button.IncorrectButton;
 import com.jb.facebook.friends.quiz.stage.game.button.Mark;
 import com.jb.facebook.friends.quiz.stage.game.question.AbstractQuestion;
-import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.game.service.QuestionService;
 import com.jb.facebook.friends.quiz.stage.game.service.UserDetailsRequest;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
@@ -26,23 +27,23 @@ import java.util.*;
  */
 public class GameStage extends AbstractStage {
 
+    private static final String ID_ME_KEY = "me";
     private final GDXFacebook gdxFacebook;
-    private final GameService gameService;
     private final ImageService imageService;
     private final QuestionService questionService;
     private Queue<AbstractQuestion> questions;
     private AbstractQuestion currentQuestion;
-    private UserDetails userDetails, myUserDetails;
     private BackButton backButton;
     private CorrectButton correctButton;
     private IncorrectButton incorrectButton;
     private Map<String, Mark> marks = new HashMap<>();
     private LoadingGif loadingGif;
+    private Cache<String, UserDetails> userDetailsCache = CacheBuilder.newBuilder().build();
+    private String userId;
 
     @Inject
-    public GameStage(GDXFacebook gdxFacebook, GameService gameService, ImageService imageService, QuestionService questionService) {
+    public GameStage(GDXFacebook gdxFacebook, ImageService imageService, QuestionService questionService) {
         this.gdxFacebook = gdxFacebook;
-        this.gameService = gameService;
         this.imageService = imageService;
         this.questionService = questionService;
     }
@@ -71,21 +72,16 @@ public class GameStage extends AbstractStage {
 
         questions = new ArrayDeque<>();
 
-        final String userId = (String) additionalData.get(ContextConstants.USER_ID_ADDITIONAL_DATA_KEY);
-        new UserDetailsRequest(gdxFacebook, userId) {
+        userId = (String) additionalData.get(ContextConstants.USER_ID_ADDITIONAL_DATA_KEY);
 
-            @Override
-            public void onFacebookResponseSuccess(UserDetails result) {
-                userDetails = result;
-            }
-        };
-        new UserDetailsRequest(gdxFacebook, "me") {
-
-            @Override
-            public void onFacebookResponseSuccess(UserDetails result) {
-                myUserDetails = result;
-            }
-        };
+        final UserDetails myUserDetails = userDetailsCache.getIfPresent(ID_ME_KEY);
+        final UserDetails userDetails = userDetailsCache.getIfPresent(userId);
+        if (myUserDetails == null) {
+            makeUserDetailsRequest(ID_ME_KEY);
+        }
+        if (userDetails == null) {
+            makeUserDetailsRequest(userId);
+        }
     }
 
     @Override
@@ -130,6 +126,16 @@ public class GameStage extends AbstractStage {
         return false;
     }
 
+    private void makeUserDetailsRequest(final String userId) {
+        new UserDetailsRequest(gdxFacebook, userId) {
+
+            @Override
+            public void onFacebookResponseSuccess(UserDetails result) {
+                userDetailsCache.put(userId, result);
+            }
+        };
+    }
+
     private void initializeLoading() {
         loadingGif = new LoadingGif();
         addActor(loadingGif);
@@ -150,6 +156,8 @@ public class GameStage extends AbstractStage {
     }
 
     private void handleInitializingQuestions() {
+        final UserDetails myUserDetails = userDetailsCache.getIfPresent(ID_ME_KEY);
+        final UserDetails userDetails = userDetailsCache.getIfPresent(userId);
         if (userDetails != null && myUserDetails != null && CollectionUtils.isEmpty(questions)) {
             final List<AbstractQuestion> questionList = questionService.generateQuestionList(userDetails, myUserDetails);
             questions.addAll(questionList);
@@ -158,8 +166,6 @@ public class GameStage extends AbstractStage {
                 addActor(entry.getValue());
             }
             initializeNextQuestion();
-            userDetails = null;
-            myUserDetails = null;
         }
     }
 

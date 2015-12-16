@@ -1,6 +1,8 @@
 package com.jb.facebook.friends.quiz.stage.pregame;
 
 import com.badlogic.gdx.Input;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.jb.facebook.friends.quiz.json.UserDetails;
 import com.jb.facebook.friends.quiz.json.UsersJson;
 import com.jb.facebook.friends.quiz.stage.AbstractStage;
@@ -8,9 +10,7 @@ import com.jb.facebook.friends.quiz.stage.ScreenType;
 import com.jb.facebook.friends.quiz.stage.common.BackButton;
 import com.jb.facebook.friends.quiz.stage.common.LoadingGif;
 import com.jb.facebook.friends.quiz.stage.common.font.FontManager;
-import com.jb.facebook.friends.quiz.stage.game.service.GameService;
 import com.jb.facebook.friends.quiz.stage.game.service.GetFriendsRequest;
-import com.jb.facebook.friends.quiz.stage.game.service.UserDetailsRequest;
 import com.jb.facebook.friends.quiz.stage.invite.model.RefreshButton;
 import com.jb.facebook.friends.quiz.stage.pregame.image.ImageService;
 import de.tomgrill.gdxfacebook.core.GDXFacebook;
@@ -27,21 +27,20 @@ import static com.jb.facebook.friends.quiz.configuration.ContextConstants.USER_I
  */
 public class PreGameStage extends AbstractStage {
 
+    private static final String USER_LIST_CACHE_KEY = "userListCacheKey";
     private final GDXFacebook gdxFacebook;
-    private final GameService gameService;
     private final ImageService imageService;
     private final FontManager fontManager;
     private RefreshButton refreshButton;
     private BackButton backButton;
     private List<UserRow> userRows;
     private LoadingGif loadingGif;
-    private List<UserDetails> asyncUserList;
+    private Cache<String, List<UserDetails>> userListCache = CacheBuilder.newBuilder().build();
 
     @Inject
-    public PreGameStage(final GDXFacebook gdxFacebook, final GameService gameService, final ImageService imageService, final FontManager
+    public PreGameStage(final GDXFacebook gdxFacebook, final ImageService imageService, final FontManager
             fontManager) {
         this.gdxFacebook = gdxFacebook;
-        this.gameService = gameService;
         this.imageService = imageService;
         this.fontManager = fontManager;
     }
@@ -98,6 +97,8 @@ public class PreGameStage extends AbstractStage {
     }
 
     private void handleInitializingFriendsList() {
+        final List<UserDetails> asyncUserList = userListCache.getIfPresent(USER_LIST_CACHE_KEY);
+
         if (asyncUserList != null && CollectionUtils.isEmpty(userRows)) {
             for (int i = 0; i < asyncUserList.size(); i++) {
 
@@ -131,13 +132,16 @@ public class PreGameStage extends AbstractStage {
     }
 
     private void initializeUsers() {
+        final List<UserDetails> asyncUserList = userListCache.getIfPresent(USER_LIST_CACHE_KEY);
 
-        new GetFriendsRequest(gdxFacebook) {
-            @Override
-            public void onFacebookResponseSuccess(UsersJson result) {
-                asyncUserList = result.getUserDetailsList();
-            }
-        };
+        if (asyncUserList == null) {
+            new GetFriendsRequest(gdxFacebook) {
+                @Override
+                public void onFacebookResponseSuccess(UsersJson result) {
+                    userListCache.put(USER_LIST_CACHE_KEY, result.getUserDetailsList());
+                }
+            };
+        }
     }
 
     private void returnToMenu() {
