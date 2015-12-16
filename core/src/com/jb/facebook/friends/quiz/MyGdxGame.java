@@ -1,5 +1,6 @@
 package com.jb.facebook.friends.quiz;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -59,5 +60,7 @@ public class MyGdxGame extends Game {
     private void initialize() {
         batch = new SpriteBatch();
         Gdx.input.setCatchBackKey(true);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
     }
 }

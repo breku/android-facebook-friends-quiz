@@ -12,7 +12,7 @@ import de.tomgrill.gdxfacebook.core.GDXFacebookGraphResult;
  */
 public abstract class AsyncAbstractFacebookRequest<T> {
 
-    private static final String TAG = "AbstractFacebookCallable";
+    private static final String TAG = "AsyncAbstractFacebookRequest";
     private final Class<T> type;
     private final GDXFacebook gdxFacebook;
     private final String requestGraphNode;
@@ -30,7 +30,7 @@ public abstract class AsyncAbstractFacebookRequest<T> {
     public abstract void onFacebookResponseSuccess(T result);
 
     protected void initializeResultAsync() {
-        Gdx.app.log(this.getClass().getSimpleName(), "#initializeResultAsync>> Service called");
+        Gdx.app.log(TAG, "#initializeResultAsync>> Service called");
 
         final GDXFacebookGraphRequest request = new GDXFacebookGraphRequest()
                 .setNode(requestGraphNode).putField("fields", requestGraphFields).putField("limit", "100").useCurrentAccessToken();
@@ -38,13 +38,13 @@ public abstract class AsyncAbstractFacebookRequest<T> {
         gdxFacebook.newGraphRequest(request, new AbstractFacebookCallback() {
             @Override
             public void onSuccess(GDXFacebookGraphResult result) {
-                Gdx.app.log(AsyncAbstractFacebookRequest.this.getClass().getSimpleName(), "#initializeResultAsync asynchronousResult=" +
+                Gdx.app.log(TAG, "#initializeResultAsync asynchronousResult=" +
                         result.getResultAsJson());
                 jsonResult = result.getResultAsJson();
                 final T t = new Gson().fromJson(jsonResult, type);
                 onFacebookResponseSuccess(t);
             }
         });
-        Gdx.app.log(this.getClass().getSimpleName(), "#initializeResultAsync<< Service finished");
+        Gdx.app.log(TAG, "#initializeResultAsync<< Service finished");
     }
 }

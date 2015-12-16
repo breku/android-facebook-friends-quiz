@@ -44,7 +44,7 @@ public class QuestionService {
 
         Collections.shuffle(result);
         result = result.subList(0, result.size() > 10 ? 10 : result.size());
-        Gdx.app.log(TAG, "<< #generateQuestionList finished with asynchronousResult=" + result);
+        Gdx.app.log(TAG, "<< #generateQuestionList finished with result=" + result);
         return result;
     }
 

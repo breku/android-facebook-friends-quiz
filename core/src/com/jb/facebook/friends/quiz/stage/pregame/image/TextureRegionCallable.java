@@ -1,5 +1,6 @@
 package com.jb.facebook.friends.quiz.stage.pregame.image;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.StreamUtils;
@@ -14,6 +15,7 @@ import java.util.concurrent.Callable;
  */
 public class TextureRegionCallable implements Callable<ImageDetails> {
 
+    private static final String TAG = "TextureRegionCallable";
     private final String url;
 
     public TextureRegionCallable(String url) {
@@ -22,7 +24,10 @@ public class TextureRegionCallable implements Callable<ImageDetails> {
 
     @Override
     public ImageDetails call() throws Exception {
-        return getTextureRegion();
+        Gdx.app.debug(TAG, ">> Downloading image from url=" + url);
+        final ImageDetails result = getTextureRegion();
+        Gdx.app.debug(TAG, "<< Downloading image finished");
+        return result;
     }
 
     private ImageDetails getTextureRegion() {
